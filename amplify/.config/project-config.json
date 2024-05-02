@@ -2,7 +2,7 @@
   "providers": [
     "awscloudformation"
   ],
-  "projectName": "authentication",
+  "projectName": "gates",
   "version": "3.1",
   "frontend": "flutter",
   "flutter": {

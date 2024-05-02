@@ -8,7 +8,7 @@ import 'package:intelicity_auth_microapp_flutter/shared/themes/app_text_styles.d
 import 'package:gates_authentication/app/home/presenter/stores/home_store.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
