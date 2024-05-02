@@ -1,0 +1,38 @@
+name: gates_authentication
+description: "Gates Web Authentication"
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.4 <4.0.0'
+
+dependencies:
+  intelicity_auth_microapp_flutter:
+    git:
+      url: https://github.com/GabrielGodoy01/intelicity_auth_microapp_flutter.git
+      ref: dev
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  flutter_mobx: ^2.2.0
+  mobx: ^2.2.1
+  intl: ^0.18.0
+  flutter_modular: ^6.3.2
+  dartz: ^0.10.1
+  logger: ^2.0.2+1
+  url_launcher: ^6.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  build_runner: ^2.4.6
+  mobx_codegen: ^2.4.0
+
+flutter:
+  uses-material-design: true
+
+flutter_intl:
+  enabled: false

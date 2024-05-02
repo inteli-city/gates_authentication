@@ -1,0 +1,70 @@
+# name: CD_AWS_S3
+# on:
+#   push:
+#     branches: [ dev ]
+#   workflow_dispatch:
+# jobs:
+#   build_WEB:
+#       name: Build Flutter (WEB)
+#       runs-on: ubuntu-latest
+#       environment: ${{ github.ref_name }}
+#       permissions:
+#         id-token: write
+#         contents: write
+#       steps:
+#         - name: Checkout code
+#           uses: actions/checkout@v2
+#         - name: Setup Java Version
+#           uses: actions/setup-java@v1
+#           with:
+#             java-version: "12.x"
+
+#         - name: Setup Flutter Version
+#           uses: subosito/flutter-action@v1
+#           with:
+#             channel: "stable"
+
+#         - name: Get flutter dependencies
+#           run: flutter pub get
+
+#         - name: Setup AWS Credentials
+#           uses: aws-actions/configure-aws-credentials@v2
+#           with:
+#             aws-region: sa-east-1
+#             role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GithubActionsRole
+#             role-session-name: github-action
+     
+#         - run: npm install -g @aws-amplify/cli
+#         - name: Setup Amplify projects
+#           run: |
+#             AWSCLOUDFORMATIONCONFIG="{\
+#             \"configLevel\":\"general\",\
+#             \"useProfile\":true,\
+#             \"profileName\":\"default\",\
+#             \"accessKeyId\":\"${{ env.AWS_ACCESS_KEY_ID}}\",\
+#             \"secretAccessKey\":\"${{ env.AWS_SECRET_ACCESS_KEY}}\",\
+#             \"region\":\"sa-east-1\"\
+#             }"
+#             CONFIG="{\
+#             \"ResDir\":\"lib\"\
+#             }"
+#             FRONTEND="{\
+#             \"frontend\":\"flutter\",\
+#             \"config\":$CONFIG\
+#             }"
+#             AMPLIFY="{\
+#             \"projectName\":\"${{ secrets.AMPLIFY_AUTH_PROJECT }}\",\
+#             \"appId\":\"${{ secrets.AMPLIFY_AUTH_APP_ID }}\",\
+#             \"envName\":\"${{ github.ref_name }}\",\
+#             \"defaultEditor\":\"code\"\
+#             }"
+#             PROVIDERS="{\
+#             \"awscloudformation\":$AWSCLOUDFORMATIONCONFIG\
+#             }"
+        
+#             amplify pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS --yes
+        
+#         - run: flutter build web --release --dart-define=ENV=${{ github.ref_name }} --dart-define=MSS_BASE_URL=${{ secrets.MSS_BASE_URL }}
+
+#         - name: Sync files to S3
+#           run: aws s3 sync build/web/ s3://auth-web-front-${{ github.ref_name }}

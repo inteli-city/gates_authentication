@@ -1,0 +1,37 @@
+{
+    "name": "Gates",
+    "short_name": "Gates",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "Gates is an authentication unifier",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/icon-512x512.png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "icons/icon-192x192.png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "icons/icon-144x144.png",
+            "sizes": "144x144"
+        },
+        {
+            "src": "icons/icon-96x96.png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "icons/icon-72x72.png",
+            "sizes": "72x72"
+        },
+        {
+            "src": "icons/icon-48x48.png",
+            "sizes": "48x48"
+        }
+    ]
+}
