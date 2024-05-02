@@ -1,0 +1,95 @@
+{
+    "email": "Email",
+    "password": "Senha",
+    "confirmPassword": "Confirme a senha",
+    "login": "Login",
+    "register": "Cadastrar",
+    "forgotPassword": "Esqueceu sua senha?",
+    "access": "Acessar",
+    "resetPasswordPageText": "Digite o e-mail que você usou para criar sua conta para que possamos enviar um código para redefinir sua senha",
+    "send": "Enviar",
+    "backToLogin": "Voltar para o login",
+    "verifyEmail": "Verifique seu e-mail",
+    "newPasswordPageText": "Preencha o código recebido por e-mail e sua nova senha para redefini-la",
+    "newPassword": "Nova senha",
+    "confirmNewPassword": "Confirme a nova senha",
+    "code": "Código",
+    "newPasswordNeeded": "Nova senha necessária",
+    "loginNewPasswordText": "Por favor, informe sua nova senha",
+    "buttonLogin": "Entrar como",
+    "textErrorHome": "Foi encontrado um erro nos parametros, seguintes parâmetros são necessários: ",
+    "textSubErrorHome": "{textSubErrorHome}",
+    "@textSubErrorHome": {
+        "placeholders": {
+            "placeholders": {
+                "textSubErrorHome": {}
+            }
+        }
+    },
+    "id": "ID",
+    "name": "Nome",
+    "role": "Função",
+    "systems": "Sistemas",
+    "enabled": "Habilitado",
+    "status": "Status",
+    "managementPage": "Página de Gestão de Usuários",
+    "registerUser": "Registrar Usuário",
+    "manageUsers": "Gerenciar Usuários",
+    "createUserSuccess": "Usuário criado com sucesso",
+    "updateUserSuccess": "Usuário atualizado com sucesso",
+    "createUser": "Criar Usuário",
+    "createUserText": "Preencha as informações do usuário a ser criado:",
+    "roleTooltip": "Administrador: possui acesso total a gestão de usuários do sistema.\nUser: possui acesso apenas de autenticação de usuário.",
+    "managementUsers": "Gerenciamento de Usuários",
+    "systemsPermissions": "Permissões de Sistema",
+    "moreFeaturesSoon": "Mais recursos em breve...",
+    "roleSchema": "{schema, select, COLLABORATOR{Colaborador} ADMIN{Administrador} USER{Usuário} other{}}",
+    "userStatusSchema": "{schema, select, UNCONFIRMED{Não confirmado} CONFIRMED{Confirmado} ARCHIVED{Arquivado} UNKNOWN{Desconhecido} RESET_REQUIRED{Redefinir necessário} FORCE_CHANGE_PASSWORD{Primeiro acesso necessário} other{}}",
+    "logout": "Sair",
+    "updateUser": "Atualizar usuário",
+    "adminDontUpdateAdmin": "Não é possível editar outro administrador",
+    "passwordRequirements": "A senha deve conter no mínimo 8 caracteres, com pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial",
+
+
+    "fieldRequired": "Campo é obrigatório",
+    "fieldEmailInvalid": "Email inválido",
+    "fieldPasswordInvalid": "Senha inválida",
+    "fieldConfirmPasswordInvalid": "As senhas não conferem",
+    "passwordMinimumLength": "A senha deve conter no mínimo 8 caracteres",
+    "passwordUppercase": "A senha deve conter pelo menos uma letra maiúscula",
+    "passwordLowercase": "A senha deve conter pelo menos uma letra minúscula",
+    "passwordNumber": "A senha deve conter pelo menos um número",
+    "passwordSpecialCharacter": "A senha deve conter pelo menos um caractere especial (ex: !@#$%^&*)",
+
+    "authErrorsSchema": "{schema, select, invalidStateException{Usuário já está conectado} codeDeliveryFailure{Falha ao enviar código para o e-mail, tente novamente} codeMismatch{Código fornecido está errado, tente novamente} invalidParameter{Algum campo preenchido de forma errada} usernameExists{Já existe um cadastro com este e-mail} notAuthorized{E-mail ou senha incorretos} userNotConfirmed{E-mail não confirmado, confirme-o} signedOut{E-mail ou senha incorretos} limitExceeded{Muitas tentativas em sequência, tente novamente mais tarde} tooManyFailedAttempts{Parece que você tentou errou o código muitas vezes, entre em contato} userNotFound{Não encontramos este e-mail cadastrado} internalError{Estamos com problemas internos, tente mais tarde} other{Ocorreu algum erro ao confirmar e-mail}}",
+    "entityErrorMessage": "Campo {entityErrorMessage} não é válido",
+    "@entityErrorMessage" : {
+        "placeholders": {
+            "placeholders": {
+                "restaurantName": {}
+            }
+        }
+    },
+
+    "emptyListErrorMessage": "Lista vazia, itens não encontrados para essa requisição",
+
+    "contactError": "Erro ao enviar mensagem, tente novamente mais tarde.",
+
+    "requestErrorMessage": "{message}",
+    "@requestErrorMessage" : {
+        "placeholders": {
+            "placeholders": {
+                "restaurantName": {}
+            }
+        }
+    },
+
+    "noItemsFoundErrorMessage": "Itens não encontrados para: {message}",
+    "@noItemsFoundErrorMessage" : {
+        "placeholders": {
+            "placeholders": {
+                "restaurantName": {}
+            }
+        }
+    }
+}

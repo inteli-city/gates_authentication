@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:intelicity_auth_microapp_flutter/core/auth_controller.dart';
-import 'package:intelicity_auth_microapp_flutter/domain/entities/logged_user_info.dart';
-import 'package:intelicity_auth_microapp_flutter/domain/enum/role_enum.dart';
+import 'package:gates_microapp_flutter/core/auth_controller.dart';
+import 'package:gates_microapp_flutter/domain/entities/logged_user_info.dart';
+import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
 import 'package:gates_authentication/app/home/domain/entities/params.dart';
 import 'package:gates_authentication/app/home/domain/usecases/get_params.dart';
 import 'package:gates_authentication/app/home/domain/usecases/set_params.dart';

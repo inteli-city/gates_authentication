@@ -421,6 +421,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  gates_microapp_flutter:
+    dependency: "direct main"
+    description:
+      path: "packages/gates_microapp_flutter"
+      relative: true
+    source: path
+    version: "0.1.0"
   glob:
     dependency: transitive
     description:
@@ -477,15 +484,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
-  intelicity_auth_microapp_flutter:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: dev
-      resolved-ref: bea5b8a3c113f65f507f16c8e5f796248c4be125
-      url: "https://github.com/GabrielGodoy01/intelicity_auth_microapp_flutter.git"
-    source: git
-    version: "1.0.0+1"
   intl:
     dependency: "direct main"
     description:

@@ -1,14 +1,18 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_authentication/amplifyconfiguration.dart';
-import 'package:intelicity_auth_microapp_flutter/helpers/guards/auth_guard.dart';
-import 'package:intelicity_auth_microapp_flutter/login.dart';
-import 'package:intelicity_auth_microapp_flutter/presenter/ui/pages/user_home_page.dart';
 import 'package:gates_authentication/app/home/domain/repositories/uri_repository.dart';
 import 'package:gates_authentication/app/home/domain/usecases/get_params.dart';
 import 'package:gates_authentication/app/home/domain/usecases/set_params.dart';
 import 'package:gates_authentication/app/home/infra/repositories/uri_repository_impl.dart';
 import 'package:gates_authentication/app/home/presenter/pages/home_page.dart';
 import 'package:gates_authentication/app/home/presenter/stores/home_store.dart';
+import 'package:gates_microapp_flutter/helpers/guards/admin_guard.dart';
+import 'package:gates_microapp_flutter/helpers/guards/auth_guard.dart';
+import 'package:gates_microapp_flutter/helpers/guards/login_guard.dart';
+import 'package:gates_microapp_flutter/micro_app_admin_module.dart';
+import 'package:gates_microapp_flutter/micro_app_auth_module.dart';
+import 'package:gates_microapp_flutter/micro_app_login_module.dart';
+import 'package:gates_microapp_flutter/presenter/ui/pages/user_home_page.dart';
 
 class AppModule extends Module {
   @override

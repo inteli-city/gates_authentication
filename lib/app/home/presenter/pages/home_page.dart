@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:intelicity_auth_microapp_flutter/generated/l10n.dart';
-import 'package:intelicity_auth_microapp_flutter/presenter/ui/pages/landing_page.dart';
-import 'package:intelicity_auth_microapp_flutter/shared/themes/app_colors.dart';
-import 'package:intelicity_auth_microapp_flutter/shared/themes/app_text_styles.dart';
+import 'package:gates_microapp_flutter/generated/l10n.dart';
+import 'package:gates_microapp_flutter/presenter/ui/pages/landing_page.dart';
+import 'package:gates_microapp_flutter/shared/themes/app_colors.dart';
+import 'package:gates_microapp_flutter/shared/themes/app_text_styles.dart';
 import 'package:gates_authentication/app/home/presenter/stores/home_store.dart';
 
 class HomePage extends StatefulWidget {

@@ -1,0 +1,41 @@
+name: gates_microapp_flutter
+description: "A microapp for Gates Authentication and Authorization using AWS Amplify and Flutter."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.4 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  amplify_auth_cognito: ^1.6.0
+  amplify_flutter: ^1.6.0
+  flutter_mobx: ^2.2.0
+  mobx: ^2.2.1
+  dartz: ^0.10.1
+  flutter_modular: ^6.3.2
+  logger: ^2.0.2+1
+  string_validator: ^1.0.2
+  fluttertoast: ^8.2.4
+  intl: ^0.18.1
+  google_fonts: ^6.1.0
+  dio: ^5.4.0
+  syncfusion_flutter_datagrid: ^24.2.7
+  syncfusion_flutter_core: ^24.2.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mobx_codegen: ^2.4.0
+  flutter_lints: ^3.0.0
+  build_runner: ^2.4.6
+
+flutter:
+  uses-material-design: true
+
+flutter_intl:
+  enabled: true

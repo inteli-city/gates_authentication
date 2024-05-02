@@ -1,10 +1,9 @@
-import 'package:intelicity_auth_microapp_flutter/generated/l10n.dart';
-import 'package:intelicity_auth_microapp_flutter/helpers/functions/global_snackbar.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:intelicity_auth_microapp_flutter/shared/themes/app_colors.dart';
+import 'package:gates_microapp_flutter/generated/l10n.dart';
+import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
+import 'package:gates_microapp_flutter/shared/themes/app_colors.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({super.key});
