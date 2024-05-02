@@ -174,10 +174,10 @@ class ObraDataSourceTable extends DataGridSource {
                       final authenticatedUserRole = authController.user!.role;
 
                       final isUserAdmin =
-                          authenticatedUserRole == RoleEnum.ADMIN;
+                          authenticatedUserRole == RoleEnum.ADMIN_USER;
 
                       final isUserRoleAdminOrIntellicity =
-                          selectedUserRole == RoleEnum.ADMIN ||
+                          selectedUserRole == RoleEnum.ADMIN_USER ||
                               selectedUserRole == RoleEnum.COLLABORATOR;
 
                       if (isUserRoleAdminOrIntellicity && isUserAdmin) {

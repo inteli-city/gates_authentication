@@ -43,7 +43,7 @@
     "managementUsers": "Gerenciamento de Usuários",
     "systemsPermissions": "Permissões de Sistema",
     "moreFeaturesSoon": "Mais recursos em breve...",
-    "roleSchema": "{schema, select, COLLABORATOR{Colaborador} ADMIN{Administrador} USER{Usuário} other{}}",
+    "roleSchema": "{schema, select, ADMIN_COLLABORATOR{Colaborador administrador} COLLABORATOR{Colaborador} ADMIN_USER{Administrador} USER{Usuário} other{}}",
     "userStatusSchema": "{schema, select, UNCONFIRMED{Não confirmado} CONFIRMED{Confirmado} ARCHIVED{Arquivado} UNKNOWN{Desconhecido} RESET_REQUIRED{Redefinir necessário} FORCE_CHANGE_PASSWORD{Primeiro acesso necessário} other{}}",
     "logout": "Sair",
     "updateUser": "Atualizar usuário",

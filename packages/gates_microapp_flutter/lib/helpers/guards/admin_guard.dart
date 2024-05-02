@@ -13,6 +13,8 @@ class AdminGuard extends RouteGuard {
       return false;
     }
     return Modular.get<AuthController>().isLogged &&
-        Modular.get<AuthController>().user!.role != RoleEnum.USER;
+        (Modular.get<AuthController>().user!.role ==
+                RoleEnum.ADMIN_COLLABORATOR ||
+            Modular.get<AuthController>().user!.role == RoleEnum.ADMIN_USER);
   }
 }

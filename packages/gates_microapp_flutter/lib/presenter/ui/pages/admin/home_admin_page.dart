@@ -24,7 +24,7 @@ class HomeAdminPage extends StatelessWidget {
             onPressed: onPressed,
             text: '${S.of(context).buttonLogin} $email',
           ),
-          if (authController.user!.role == RoleEnum.COLLABORATOR) ...[
+          if (authController.user!.role == RoleEnum.ADMIN_COLLABORATOR) ...[
             const SizedBox(height: 8),
             ButtonCustom(
               isOutlined: true,

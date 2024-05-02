@@ -4,8 +4,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/core/auth_controller.dart';
 import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
 
-class CollaboratorGuard extends RouteGuard {
-  CollaboratorGuard({String? redirectTo})
+class AdminCollaboratorGuard extends RouteGuard {
+  AdminCollaboratorGuard({String? redirectTo})
       : super(redirectTo: redirectTo ?? '/');
 
   @override
@@ -14,7 +14,6 @@ class CollaboratorGuard extends RouteGuard {
       return false;
     }
     return Modular.get<AuthController>().isLogged &&
-        Modular.get<AuthController>().user!.role != RoleEnum.USER &&
-        Modular.get<AuthController>().user!.role != RoleEnum.ADMIN;
+        Modular.get<AuthController>().user!.role == RoleEnum.ADMIN_COLLABORATOR;
   }
 }

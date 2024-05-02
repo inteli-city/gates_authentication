@@ -43,7 +43,7 @@
     "managementUsers": "Management of Users",
     "systemsPermissions": "Systems Permissions",
     "moreFeaturesSoon": "More features coming soon...",
-    "roleSchema": "{schema, select, COLLABORATOR{Colaborador} ADMIN{Administrator} USER{User} other{}}",
+    "roleSchema": "{schema, select, ADMIN_COLLABORATOR{Admin Collaborator} COLLABORATOR{Collaborator} ADMIN_USER{Administrator} USER{User} other{}}",
     "userStatusSchema": "{schema, select, UNCONFIRMED{Unconfirmed} CONFIRMED{Confirmed} ARCHIVED{Archived} UNKNOWN{Unknown} RESET_REQUIRED{Reset Required} FORCE_CHANGE_PASSWORD{First Access Required} other{}}",
     "logout": "Logout",
     "updateUser": "Update User",

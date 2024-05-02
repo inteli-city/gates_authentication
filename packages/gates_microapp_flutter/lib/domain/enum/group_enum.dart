@@ -2,14 +2,19 @@
 
 enum GroupEnum {
   GAIA,
-  JUNDIAI;
+  JUNDIAI,
+  FORMULARIOS;
 
   static GroupEnum stringToEnum(String group) {
     switch (group) {
       case 'GAIA':
         return GroupEnum.GAIA;
-      default:
+      case 'JUNDIAI':
         return GroupEnum.JUNDIAI;
+      case 'FORMULARIOS':
+        return GroupEnum.FORMULARIOS;
+      default:
+        throw Exception('Group not found');
     }
   }
 

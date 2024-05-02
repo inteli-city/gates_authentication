@@ -3,16 +3,19 @@
 import 'package:gates_microapp_flutter/generated/l10n.dart';
 
 enum RoleEnum {
+  ADMIN_COLLABORATOR,
   COLLABORATOR,
-  ADMIN,
+  ADMIN_USER,
   USER;
 
   static RoleEnum stringToEnum(String role) {
     switch (role) {
+      case 'ADMIN_COLLABORATOR':
+        return RoleEnum.ADMIN_COLLABORATOR;
       case 'COLLABORATOR':
         return RoleEnum.COLLABORATOR;
-      case 'ADMIN':
-        return RoleEnum.ADMIN;
+      case 'ADMIN_USER':
+        return RoleEnum.ADMIN_USER;
       case 'USER':
         return RoleEnum.USER;
       default:

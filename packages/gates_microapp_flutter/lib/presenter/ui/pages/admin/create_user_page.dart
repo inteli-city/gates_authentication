@@ -42,8 +42,8 @@ class _CreateUserPageState extends State<CreateUserPage> {
   @override
   Widget build(BuildContext context) {
     final CreateUserController controller = Modular.get();
-    List<RoleEnum> items = authController.user!.role == RoleEnum.ADMIN
-        ? [RoleEnum.ADMIN, RoleEnum.USER]
+    List<RoleEnum> items = authController.user!.role == RoleEnum.ADMIN_USER
+        ? [RoleEnum.ADMIN_USER, RoleEnum.USER]
         : RoleEnum.values.toList();
 
     return LandingPage(

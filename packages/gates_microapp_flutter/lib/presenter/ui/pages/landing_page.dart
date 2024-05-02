@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/shared/themes/app_colors.dart';
 
@@ -39,6 +41,28 @@ class LandingPage extends StatelessWidget {
                 color: Colors.white,
                 child: Stack(
                   children: [
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          Image.network(
+                            'https://intelicity-assets.s3.sa-east-1.amazonaws.com/gates_logo.png',
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 32),
+                            child: child,
+                          ),
+                          const SizedBox(
+                            height: 32,
+                          ),
+                        ],
+                      ),
+                    ),
                     isBackButtonVisible
                         ? IconButton(
                             onPressed: () {
@@ -50,21 +74,7 @@ class LandingPage extends StatelessWidget {
                               size: 32,
                             ),
                           )
-                        : const SizedBox(),
-                    Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.network(
-                            'https://intelicity-assets.s3.sa-east-1.amazonaws.com/gates_logo.png',
-                            height: 200,
-                          ),
-                          child
-                        ],
-                      ),
-                    ),
+                        : const SizedBox.shrink(),
                   ],
                 ),
               ),
