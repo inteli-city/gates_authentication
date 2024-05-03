@@ -23,12 +23,6 @@ enum RoleEnum {
     }
   }
 
-  static String typeName(RoleEnum role) {
-    return S.current.roleSchema(role.name);
-  }
-}
-
-extension RoleEnumExtension on RoleEnum {
   String get typeName {
     return S.current.roleSchema(toString());
   }

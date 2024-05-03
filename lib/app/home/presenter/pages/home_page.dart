@@ -45,17 +45,20 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         }
-        return Column(
-          children: [
-            Text(
-              'Carregando informações',
-              style: AppTextStyles.headline1,
-            ),
-            const SizedBox(height: 8),
-            CircularProgressIndicator(
-              color: AppColors.primaryBlue,
-            ),
-          ],
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Carregando informações',
+                style: AppTextStyles.headline1,
+              ),
+              const SizedBox(height: 8),
+              CircularProgressIndicator(
+                color: AppColors.primaryBlue,
+              ),
+            ],
+          ),
         );
       }),
     );

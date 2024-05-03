@@ -420,13 +420,14 @@ class S {
     );
   }
 
-  /// `{schema, select, COLLABORATOR{Colaborador} ADMIN{Administrator} USER{User} other{}}`
+  /// `{schema, select, ADMIN_COLLABORATOR{Admin Collaborator} COLLABORATOR{Collaborator} ADMIN_USER{Administrator} USER{User} other{}}`
   String roleSchema(Object schema) {
     return Intl.select(
       schema,
       {
-        'COLLABORATOR': 'Colaborador',
-        'ADMIN': 'Administrator',
+        'ADMIN_COLLABORATOR': 'Admin Collaborator',
+        'COLLABORATOR': 'Collaborator',
+        'ADMIN_USER': 'Administrator',
         'USER': 'User',
         'other': '',
       },

@@ -47,8 +47,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m3(placeholders, message) => "${message}";
 
   static String m4(schema) => "${Intl.select(schema, {
-            'COLLABORATOR': 'Colaborador',
-            'ADMIN': 'Administrator',
+            'ADMIN_COLLABORATOR': 'Admin Collaborator',
+            'COLLABORATOR': 'Collaborator',
+            'ADMIN_USER': 'Administrator',
             'USER': 'User',
             'other': '',
           })}";

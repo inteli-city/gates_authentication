@@ -31,7 +31,8 @@ abstract class HomeStoreBase with Store {
         if (!value) {
           Modular.to.navigate('/login/');
         } else {
-          _authController.user!.role == RoleEnum.USER
+          _authController.user!.role == RoleEnum.USER ||
+                  _authController.user!.role == RoleEnum.COLLABORATOR
               ? Modular.to.navigate('/user', arguments: [
                   () {
                     signIn();
