@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/core/auth_controller.dart';
+import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
 
 class AuthInterceptor extends Interceptor {
   final AuthController authController = Modular.get();
@@ -10,6 +11,7 @@ class AuthInterceptor extends Interceptor {
     await authController.checkLogin().then((value) {
       if (!value) {
         Modular.to.navigate('/');
+        GlobalSnackBar.error('Sessão expirada, faça login novamente!');
       }
     });
     if (authController.user != null) {

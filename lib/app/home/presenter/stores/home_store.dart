@@ -5,6 +5,7 @@ import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
 import 'package:gates_authentication/app/home/domain/entities/params.dart';
 import 'package:gates_authentication/app/home/domain/usecases/get_params.dart';
 import 'package:gates_authentication/app/home/domain/usecases/set_params.dart';
+import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
 import 'package:logger/logger.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -75,11 +76,18 @@ abstract class HomeStoreBase with Store {
     });
   }
 
-  void signIn() {
-    var uri =
-        "${params!.redirectUri}/#id_token=${_authController.user?.idToken}&access_token=${_authController.user?.accessToken}&refresh_token=${_authController.user?.refreshToken}&token_type=Bearer";
-    var url = Uri.parse(uri);
-    launchUrl(url, webOnlyWindowName: '_self');
+  void signIn() async {
+    await _authController.checkLogin().then((value) {
+      if (!value) {
+        Modular.to.navigate('/');
+        GlobalSnackBar.error('Sessão expirada, faça login novamente!');
+      } else {
+        var uri =
+            "${params!.redirectUri}/#id_token=${_authController.user?.idToken}&access_token=${_authController.user?.accessToken}&refresh_token=${_authController.user?.refreshToken}&token_type=Bearer";
+        var url = Uri.parse(uri);
+        launchUrl(url, webOnlyWindowName: '_self');
+      }
+    });
   }
 
   Future<void> logout() async {
