@@ -39,6 +39,7 @@ abstract class AuthControllerBase with Store {
     final result = await _getLoggedUser();
     return result.fold<bool>((l) {
       logger.d('authController.isLogged: $isLogged');
+      setUser(null);
       return false;
     }, (r) {
       setUser(r);

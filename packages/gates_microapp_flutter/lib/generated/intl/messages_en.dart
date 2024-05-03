@@ -36,7 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
             'userNotFound': 'We couldn\'t find this registered email',
             'internalError':
                 'We are experiencing internal issues, please try again later',
-            'other': 'An error occurred while confirming email',
+            'other': 'An error occurred, please try again later',
           })}";
 
   static String m1(placeholders, entityErrorMessage) =>

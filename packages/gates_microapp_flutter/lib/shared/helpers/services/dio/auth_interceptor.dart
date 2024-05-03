@@ -5,7 +5,13 @@ import 'package:gates_microapp_flutter/core/auth_controller.dart';
 class AuthInterceptor extends Interceptor {
   final AuthController authController = Modular.get();
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
+    await authController.checkLogin().then((value) {
+      if (!value) {
+        Modular.to.navigate('/');
+      }
+    });
     if (authController.user != null) {
       options.headers['Authorization'] =
           'Bearer ${authController.user!.idToken}';
@@ -20,7 +26,9 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    err.response?.statusCode == 401 ? Modular.to.navigate('/') : null;
+    (err.response?.statusCode == 401 || err.response?.statusCode == 403)
+        ? Modular.to.navigate('/')
+        : null;
     return handler.next(err);
   }
 }

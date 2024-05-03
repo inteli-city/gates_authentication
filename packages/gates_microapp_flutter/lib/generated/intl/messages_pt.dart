@@ -36,7 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 'Parece que você tentou errou o código muitas vezes, entre em contato',
             'userNotFound': 'Não encontramos este e-mail cadastrado',
             'internalError': 'Estamos com problemas internos, tente mais tarde',
-            'other': 'Ocorreu algum erro ao confirmar e-mail',
+            'other': 'Ocorreu algum erro desconhecido',
           })}";
 
   static String m1(placeholders, entityErrorMessage) =>
