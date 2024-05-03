@@ -1,5 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:gates_authentication/amplifyconfiguration.dart';
 import 'package:gates_authentication/app/home/domain/repositories/uri_repository.dart';
 import 'package:gates_authentication/app/home/domain/usecases/get_params.dart';
 import 'package:gates_authentication/app/home/domain/usecases/set_params.dart';
@@ -16,7 +15,7 @@ import 'package:gates_microapp_flutter/presenter/ui/pages/user_home_page.dart';
 
 class AppModule extends Module {
   @override
-  List<Module> get imports => [MicroAppAuthModule(amplifyconfig)];
+  List<Module> get imports => [MicroAppAuthModule()];
 
   @override
   void binds(i) {
@@ -35,9 +34,7 @@ class AppModule extends Module {
               email: r.args.data[1] as String,
             ),
         guards: [AuthGuard()]);
-    r.module('/login',
-        module: MicroAppLoginModule(amplifyconfig), guards: [LoginGuard()]);
-    r.module('/admin',
-        module: MicroAppAdminModule(amplifyconfig), guards: [AdminGuard()]);
+    r.module('/login', module: MicroAppLoginModule(), guards: [LoginGuard()]);
+    r.module('/admin', module: MicroAppAdminModule(), guards: [AdminGuard()]);
   }
 }

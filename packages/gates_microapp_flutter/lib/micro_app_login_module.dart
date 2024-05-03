@@ -15,12 +15,10 @@ import 'package:gates_microapp_flutter/presenter/ui/pages/login_page.dart';
 import 'package:gates_microapp_flutter/presenter/ui/pages/new_password_page.dart';
 
 class MicroAppLoginModule extends Module {
-  final String _amplifyconfig;
-
-  MicroAppLoginModule(this._amplifyconfig);
+  MicroAppLoginModule();
 
   @override
-  List<Module> get imports => [MicroAppAuthModule(_amplifyconfig)];
+  List<Module> get imports => [MicroAppAuthModule()];
 
   @override
   void binds(i) {

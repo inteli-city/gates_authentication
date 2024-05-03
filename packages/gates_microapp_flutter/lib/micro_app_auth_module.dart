@@ -8,15 +8,9 @@ import 'package:gates_microapp_flutter/infra/repositories/auth_repository_impl.d
 import 'package:gates_microapp_flutter/shared/helpers/services/dio/dio_http_request.dart';
 import 'package:gates_microapp_flutter/shared/helpers/services/http/http_request_interface.dart';
 import 'package:logger/logger.dart';
-import 'amplify/amplify_config.dart';
 import 'external/datasources/cognito_datasource.dart';
 
 class MicroAppAuthModule extends Module {
-  MicroAppAuthModule(String amplifyconfig) {
-    configureAmplify(amplifyconfig);
-    Logger.level = Level.debug;
-  }
-
   @override
   void exportedBinds(i) {
     i.addLazySingleton(AuthController.new);

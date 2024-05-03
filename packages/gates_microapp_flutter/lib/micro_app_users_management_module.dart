@@ -7,12 +7,8 @@ import 'package:gates_microapp_flutter/presenter/controllers/admin/management_us
 import 'package:gates_microapp_flutter/presenter/ui/pages/admin/management_users_page.dart';
 
 class MicroAppUsersManagementModule extends Module {
-  final String _amplifyconfig;
-
-  MicroAppUsersManagementModule(this._amplifyconfig);
-
   @override
-  List<Module> get imports => [MicroAppAuthModule(_amplifyconfig)];
+  List<Module> get imports => [MicroAppAuthModule()];
 
   @override
   void binds(i) {
