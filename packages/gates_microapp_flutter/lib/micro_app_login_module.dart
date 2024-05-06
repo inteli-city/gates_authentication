@@ -15,8 +15,6 @@ import 'package:gates_microapp_flutter/presenter/ui/pages/login_page.dart';
 import 'package:gates_microapp_flutter/presenter/ui/pages/new_password_page.dart';
 
 class MicroAppLoginModule extends Module {
-  MicroAppLoginModule();
-
   @override
   List<Module> get imports => [MicroAppAuthModule()];
 

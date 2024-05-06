@@ -3,6 +3,7 @@ import 'package:gates_microapp_flutter/domain/usecases/admin_create_user_usecase
 import 'package:gates_microapp_flutter/domain/usecases/update_user_usecase.dart';
 import 'package:gates_microapp_flutter/helpers/guards/admin_guard.dart';
 import 'package:gates_microapp_flutter/helpers/guards/admin_collaborator_guard.dart';
+import 'package:gates_microapp_flutter/micro_app_auth_module.dart';
 import 'package:gates_microapp_flutter/micro_app_users_management_module.dart';
 import 'package:gates_microapp_flutter/presenter/controllers/admin/create_user_controller.dart';
 import 'package:gates_microapp_flutter/presenter/controllers/admin/update_user_controller.dart';
@@ -10,6 +11,9 @@ import 'package:gates_microapp_flutter/presenter/ui/pages/admin/create_user_page
 import 'package:gates_microapp_flutter/presenter/ui/pages/admin/home_admin_page.dart';
 
 class MicroAppAdminModule extends Module {
+  @override
+  List<Module> get imports => [MicroAppAuthModule()];
+
   @override
   void binds(i) {
     i.addLazySingleton<IAdminCreateUserUsecase>(AdminCreateUserUsecaseImpl.new);
