@@ -26,8 +26,8 @@ class _AppWidgetState extends State<AppWidget> {
           color: AppColors.primaryBlue,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(AppColors.white),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.white,
           ),
         ),
       ),
