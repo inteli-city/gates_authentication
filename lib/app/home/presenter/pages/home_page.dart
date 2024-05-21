@@ -48,10 +48,12 @@ class _HomePageState extends State<HomePage> {
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Carregando informações',
+                S.of(context).loadingInformation,
                 style: AppTextStyles.headline1,
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
               CircularProgressIndicator(

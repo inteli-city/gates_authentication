@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gates_microapp_flutter/helpers/utils/screen_helper.dart';
 import 'package:gates_microapp_flutter/shared/themes/app_colors.dart';
 import 'package:gates_microapp_flutter/shared/themes/app_text_styles.dart';
 
@@ -30,28 +31,30 @@ class ButtonCustom extends StatelessWidget {
                 foregroundColor: AppColors.primaryBlue,
                 backgroundColor: Colors.white,
                 surfaceTintColor: Colors.white,
+                padding: const EdgeInsets.all(16),
                 shape: StadiumBorder(
                   side: BorderSide(color: AppColors.primaryBlue, width: 3),
                 ),
               )
             : ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryBlue,
-                padding: const EdgeInsets.all(4),
+                padding: const EdgeInsets.all(16),
               ),
         onPressed: onPressed,
         child: isLoading
             ? CircularProgressIndicator(
                 color: isOutlined ? AppColors.primaryBlue : AppColors.white)
             : icon == null
-                ? Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(
-                      text,
-                      style: AppTextStyles.headline2.copyWith(
-                        color: isOutlined
-                            ? AppColors.primaryBlue
-                            : AppColors.white,
-                      ),
+                ? Text(
+                    text,
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.headline2.copyWith(
+                      color:
+                          isOutlined ? AppColors.primaryBlue : AppColors.white,
+                      fontSize: ScreenHelper.width(context) <
+                              ScreenHelper.breakpointMobile
+                          ? 18
+                          : 20,
                     ),
                   )
                 : Row(

@@ -12,8 +12,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  amplify_auth_cognito: ^1.6.0
-  amplify_flutter: ^1.6.0
+  amplify_auth_cognito: ^2.0.0
+  amplify_flutter: ^2.0.0
   flutter_mobx: ^2.2.0
   mobx: ^2.2.1
   dartz: ^0.10.1

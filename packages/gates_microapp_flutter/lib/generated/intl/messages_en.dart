@@ -101,6 +101,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
         "id": MessageLookupByLibrary.simpleMessage("ID"),
+        "loadingInformation":
+            MessageLookupByLibrary.simpleMessage("Loading information..."),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginNewPasswordText": MessageLookupByLibrary.simpleMessage(
             "Please, enter your new password"),

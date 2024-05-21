@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gates_microapp_flutter/helpers/utils/screen_helper.dart';
 import 'package:gates_microapp_flutter/shared/themes/app_colors.dart';
 
 class LandingPage extends StatelessWidget {
@@ -30,7 +31,11 @@ class LandingPage extends StatelessWidget {
               maxWidth: maxWidth,
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.all(
+                ScreenHelper.width(context) < ScreenHelper.breakpointMobile
+                    ? 8
+                    : 16,
+              ),
               child: Card(
                 surfaceTintColor: AppColors.white,
                 shape: RoundedRectangleBorder(
@@ -40,26 +45,20 @@ class LandingPage extends StatelessWidget {
                 color: Colors.white,
                 child: Stack(
                   children: [
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 32,
-                          ),
-                          Image.network(
-                            'https://intelicity-assets.s3.sa-east-1.amazonaws.com/gates_logo.png',
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 32),
-                            child: child,
-                          ),
-                          const SizedBox(
-                            height: 32,
-                          ),
-                        ],
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Image.network(
+                              'https://intelicity-assets.s3.sa-east-1.amazonaws.com/gates_logo.png',
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            child,
+                          ],
+                        ),
                       ),
                     ),
                     isBackButtonVisible

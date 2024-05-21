@@ -104,6 +104,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
         "id": MessageLookupByLibrary.simpleMessage("ID"),
+        "loadingInformation":
+            MessageLookupByLibrary.simpleMessage("Carregando informações..."),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginNewPasswordText": MessageLookupByLibrary.simpleMessage(
             "Por favor, informe sua nova senha"),
@@ -152,7 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "systemsPermissions":
             MessageLookupByLibrary.simpleMessage("Permissões de Sistema"),
         "textErrorHome": MessageLookupByLibrary.simpleMessage(
-            "Foi encontrado um erro nos parametros, seguintes parâmetros são necessários: "),
+            "Foi encontrado um erro nos parâmetros, seguintes parâmetros são necessários: "),
         "textSubErrorHome": m5,
         "updateUser": MessageLookupByLibrary.simpleMessage("Atualizar usuário"),
         "updateUserSuccess": MessageLookupByLibrary.simpleMessage(

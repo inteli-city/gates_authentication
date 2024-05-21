@@ -79,10 +79,10 @@ class _CreateUserPageState extends State<CreateUserPage> {
               const SizedBox(height: 16),
               Row(
                 children: [
-                  Expanded(
+                  Flexible(
                     child: DropDownFieldWidget<RoleEnum>(
                       hintText: S.of(context).role,
-                      prefixIcon: Icons.work,
+                      prefixIcon: const Icon(Icons.work),
                       onChanged: (value) {
                         role = value;
                       },

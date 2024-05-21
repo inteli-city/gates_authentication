@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Loading information...`
+  String get loadingInformation {
+    return Intl.message(
+      'Loading information...',
+      name: 'loadingInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Email`
   String get email {
     return Intl.message(

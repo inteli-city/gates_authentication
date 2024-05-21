@@ -1,4 +1,5 @@
 {
+    "loadingInformation": "Loading information...",
     "email": "Email",
     "password": "Senha",
     "confirmPassword": "Confirme a senha",

@@ -1,4 +1,5 @@
 {
+    "loadingInformation": "Carregando informações...",
     "email": "Email",
     "password": "Senha",
     "confirmPassword": "Confirme a senha",
@@ -17,7 +18,7 @@
     "newPasswordNeeded": "Nova senha necessária",
     "loginNewPasswordText": "Por favor, informe sua nova senha",
     "buttonLogin": "Entrar como",
-    "textErrorHome": "Foi encontrado um erro nos parametros, seguintes parâmetros são necessários: ",
+    "textErrorHome": "Foi encontrado um erro nos parâmetros, seguintes parâmetros são necessários: ",
     "textSubErrorHome": "{textSubErrorHome}",
     "@textSubErrorHome": {
         "placeholders": {

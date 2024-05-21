@@ -83,7 +83,7 @@ class _UpdateUserDialogState extends State<UpdateUserDialog> {
                 DropDownFieldWidget<RoleEnum>(
                   hintText: S.of(context).role,
                   value: role,
-                  prefixIcon: Icons.work,
+                  prefixIcon: const Icon(Icons.work),
                   onChanged: (value) {
                     role = value;
                   },
