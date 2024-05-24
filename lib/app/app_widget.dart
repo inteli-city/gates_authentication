@@ -22,6 +22,11 @@ class _AppWidgetState extends State<AppWidget> {
       title: 'Gates - Autenticação Unificada',
       themeMode: ThemeMode.system,
       theme: ThemeData(
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: AppColors.primaryBlue.withOpacity(0.4),
+          cursorColor: AppColors.primaryBlue.withOpacity(0.4),
+          selectionHandleColor: AppColors.primaryBlue.withOpacity(0.4),
+        ),
         progressIndicatorTheme: ProgressIndicatorThemeData(
           color: AppColors.primaryBlue,
         ),

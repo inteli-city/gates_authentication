@@ -21,21 +21,28 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'pt';
 
   static String m0(schema) => "${Intl.select(schema, {
-            'invalidStateException': 'Usuário já está conectado',
+            'invalidStateException':
+                'Parece que a operação solicitada não é válida no momento. Por favor, tente novamente mais tarde.',
             'codeDeliveryFailure':
                 'Falha ao enviar código para o e-mail, tente novamente',
             'codeMismatch': 'Código fornecido está errado, tente novamente',
-            'invalidParameter': 'Algum campo preenchido de forma errada',
+            'invalidParameter':
+                'Parece que um dos campos foi preenchido de forma incorreta. Por favor, verifique e tente novamente.',
             'usernameExists': 'Já existe um cadastro com este e-mail',
-            'notAuthorized': 'E-mail ou senha incorretos',
-            'userNotConfirmed': 'E-mail não confirmado, confirme-o',
-            'signedOut': 'E-mail ou senha incorretos',
+            'notAuthorized':
+                'Você não tem autorização para realizar esta operação.',
+            'userNotConfirmed':
+                'Usuário não confirmado, contate um administrador',
+            'signedOut':
+                'Não é possível realizar a operação solicitada porque você está desconectado. Por favor, faça login e tente novamente.',
             'limitExceeded':
                 'Muitas tentativas em sequência, tente novamente mais tarde',
             'tooManyFailedAttempts':
-                'Parece que você tentou errou o código muitas vezes, entre em contato',
+                'Você fez muitas tentativas falhas para esta ação. Por favor, aguarde um momento e tente novamente mais tarde.',
             'userNotFound': 'Não encontramos este e-mail cadastrado',
             'internalError': 'Estamos com problemas internos, tente mais tarde',
+            'invalidPasswordException':
+                'A senha deve ter pelo menos 8 caracteres, incluindo 1 número, 1 letra maiúscula, 1 letra minúscula e 1 caractere especial.',
             'other': 'Ocorreu algum erro desconhecido',
           })}";
 

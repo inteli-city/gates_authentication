@@ -104,6 +104,9 @@ class AuthRepositoryCognito implements IAuthRepository {
     } else if (e is TooManyFailedAttemptsException) {
       return AuthError(
           message: S.current.authErrorsSchema('tooManyFailedAttempts'));
+    } else if (e is InvalidPasswordException) {
+      return AuthError(
+          message: S.current.authErrorsSchema('invalidPasswordException'));
     } else if (e is UserNotFoundException) {
       return AuthError(message: S.current.authErrorsSchema('userNotFound'));
     } else if (e is InternalErrorException) {
