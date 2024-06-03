@@ -596,7 +596,7 @@ class S {
     );
   }
 
-  /// `{schema, select, invalidStateException{It seems the requested operation is not valid at the moment. Please try again later.} codeDeliveryFailure{Failed to send code to the email, please try again} codeMismatch{The provided code is incorrect, please try again} invalidParameter{It looks like one of the fields was filled out incorrectly. Please check and try again.} usernameExists{An account with this email already exists} notAuthorized{You are not authorized to perform this operation.} userNotConfirmed{User not confirmed, please contact an administrator} signedOut{The requested operation can't be performed because you are signed out. Please log in and try again.} limitExceeded{Too many attempts in a row, please try again later} tooManyFailedAttempts{You've made too many failed attempts for this action. Please wait a moment and try again later.} userNotFound{We couldn't find an account with this email} internalError{We are experiencing internal problems, please try again later} invalidPasswordException{The password must be at least 8 characters long, including 1 number, 1 uppercase letter, 1 lowercase letter, and 1 special character.} other{An unknown error occurred}}`
+  /// `{schema, select, invalidStateException{It seems the requested operation is not valid at the moment. Please try again later.} codeDeliveryFailure{Failed to send code to the email, please try again} codeMismatch{The provided code is incorrect, please try again} invalidParameter{It looks like one of the fields was filled out incorrectly. Please check and try again.} usernameExists{An account with this email already exists} notAuthorized{You are not authorized to perform this operation.} incorrectPassword{Incorrect username or password} userNotConfirmed{User not confirmed, please contact an administrator} signedOut{The requested operation can't be performed because you are signed out. Please log in and try again.} limitExceeded{Too many attempts in a row, please try again later} tooManyFailedAttempts{You've made too many failed attempts for this action. Please wait a moment and try again later.} userNotFound{We couldn't find an account with this email} internalError{We are experiencing internal problems, please try again later} invalidPasswordException{The password must be at least 8 characters long, including 1 number, 1 uppercase letter, 1 lowercase letter, and 1 special character.} other{An unknown error occurred}}`
   String authErrorsSchema(Object schema) {
     return Intl.select(
       schema,
@@ -610,6 +610,7 @@ class S {
             'It looks like one of the fields was filled out incorrectly. Please check and try again.',
         'usernameExists': 'An account with this email already exists',
         'notAuthorized': 'You are not authorized to perform this operation.',
+        'incorrectPassword': 'Incorrect username or password',
         'userNotConfirmed':
             'User not confirmed, please contact an administrator',
         'signedOut':

@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
             'usernameExists': 'An account with this email already exists',
             'notAuthorized':
                 'You are not authorized to perform this operation.',
+            'incorrectPassword': 'Incorrect username or password',
             'userNotConfirmed':
                 'User not confirmed, please contact an administrator',
             'signedOut':

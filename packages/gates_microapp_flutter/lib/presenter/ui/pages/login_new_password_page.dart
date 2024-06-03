@@ -33,6 +33,12 @@ class LoginNewPasswordPage extends StatelessWidget {
                 style: AppTextStyles.bodyText1,
                 textAlign: TextAlign.center,
               ),
+              const SizedBox(height: 8),
+              Text(
+                S.of(context).passwordRequirements,
+                style: AppTextStyles.bodyText1,
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 16),
               Observer(builder: (_) {
                 return TextFielCustom(

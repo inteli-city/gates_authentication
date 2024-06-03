@@ -116,6 +116,10 @@ class AuthRepositoryCognito implements IAuthRepository {
     } else if (e is SignedOutException) {
       return AuthError(message: S.current.authErrorsSchema('signedOut'));
     } else if (e is NotAuthorizedServiceException) {
+      if (e.message.contains('password')) {
+        return AuthError(
+            message: S.current.authErrorsSchema('incorrectPassword'));
+      }
       return AuthError(message: S.current.authErrorsSchema('notAuthorized'));
     } else if (e is UserNotConfirmedException) {
       return AuthError(message: S.current.authErrorsSchema('userNotConfirmed'));
