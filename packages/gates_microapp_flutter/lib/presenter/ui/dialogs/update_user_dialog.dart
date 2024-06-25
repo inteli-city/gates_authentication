@@ -30,8 +30,8 @@ class _UpdateUserDialogState extends State<UpdateUserDialog> {
   AuthController authController = Modular.get();
   UpdateUserController controller = Modular.get();
   ManagementUsersController managementGroupController = Modular.get();
-  final nameController = TextEditingController();
   var groups = <GroupModel>[];
+  final nameController = TextEditingController();
   RoleEnum? role;
   late bool enabled;
   final formKey = GlobalKey<FormState>();
@@ -42,7 +42,7 @@ class _UpdateUserDialogState extends State<UpdateUserDialog> {
     nameController.text = widget.user.name;
     enabled = widget.user.enabled;
     setState(() {
-      for (GroupEnum item in authController.user!.groups) {
+      for (GroupEnum item in GroupEnum.values) {
         groups.add(GroupModel(
             groupName: item, isSelected: widget.user.groups.contains(item)));
       }
