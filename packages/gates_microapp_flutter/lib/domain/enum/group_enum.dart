@@ -3,7 +3,6 @@
 enum GroupEnum {
   GAIA,
   JUNDIAI,
-  RECAPE_SP,
   FORMULARIOS;
 
   static GroupEnum stringToEnum(String group) {
@@ -14,8 +13,6 @@ enum GroupEnum {
         return GroupEnum.JUNDIAI;
       case 'FORMULARIOS':
         return GroupEnum.FORMULARIOS;
-      case 'RECAPE_SP':
-        return GroupEnum.RECAPE_SP;
       default:
         throw Exception('Group not found');
     }
