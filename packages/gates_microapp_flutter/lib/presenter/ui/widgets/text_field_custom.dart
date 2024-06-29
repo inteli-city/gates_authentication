@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gates_microapp_flutter/shared/helpers/utils/screen_helper.dart';
 import 'package:gates_microapp_flutter/shared/themes/app_colors.dart';
+import 'package:gates_microapp_flutter/shared/themes/app_text_styles.dart';
 
 class TextFielCustom extends StatelessWidget {
   final String hintText;
@@ -39,6 +40,7 @@ class TextFielCustom extends StatelessWidget {
       cursorColor: AppColors.primaryBlue,
       obscureText: showPassword != null ? !showPassword! : false,
       onFieldSubmitted: onFieldSubmitted,
+      style: AppTextStyles.bodyText1,
       decoration: InputDecoration(
           fillColor: AppColors.white,
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
