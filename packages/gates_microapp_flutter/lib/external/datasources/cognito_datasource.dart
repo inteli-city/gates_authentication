@@ -1,12 +1,12 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:gates_microapp_flutter/domain/entities/logged_user_info.dart';
 import 'package:gates_microapp_flutter/domain/entities/user_info.dart';
 import 'package:gates_microapp_flutter/domain/enum/group_enum.dart';
 import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
 import 'package:gates_microapp_flutter/domain/errors/errors.dart';
+import 'package:gates_microapp_flutter/infra/adapters/user_info_adapter.dart';
 import 'package:gates_microapp_flutter/infra/datasource/auth_datasource_interface.dart';
-import 'package:gates_microapp_flutter/infra/dtos/logged_user_dto.dart';
-import 'package:gates_microapp_flutter/infra/dtos/user_dto.dart';
 import 'package:gates_microapp_flutter/shared/helpers/errors/errors.dart';
 import 'package:gates_microapp_flutter/shared/helpers/network/http_clients/http_client.dart';
 import 'package:gates_microapp_flutter/shared/helpers/network/model/http_client_error.dart';
@@ -17,7 +17,7 @@ class CognitoDatasource implements IAuthDatasource {
   CognitoDatasource(this._httpClient);
 
   @override
-  Future<LoggedUserDto> loginEmail(
+  Future<LoggedUserInfo> loginEmail(
       {required String email, required String password}) async {
     await Amplify.Auth.signOut();
     final result = await Amplify.Auth.signIn(
@@ -34,7 +34,7 @@ class CognitoDatasource implements IAuthDatasource {
     }
     final atribbutes = await Amplify.Auth.fetchUserAttributes();
 
-    return LoggedUserDto(
+    return LoggedUserInfo(
       email: email,
       userId: session.userSubResult.value,
       role: RoleEnum.stringToEnum(atribbutes
@@ -61,7 +61,7 @@ class CognitoDatasource implements IAuthDatasource {
   }
 
   @override
-  Future<LoggedUserDto> getLoggedUser() async {
+  Future<LoggedUserInfo> getLoggedUser() async {
     final cognitoPlugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
     final session = await cognitoPlugin.fetchAuthSession();
     if (!session.isSignedIn) {
@@ -71,7 +71,7 @@ class CognitoDatasource implements IAuthDatasource {
       );
     }
     final atribbutes = await Amplify.Auth.fetchUserAttributes();
-    return LoggedUserDto(
+    return LoggedUserInfo(
       email: session.userPoolTokensResult.value.idToken.email!,
       userId: session.userSubResult.value,
       role: RoleEnum.stringToEnum(atribbutes
@@ -136,13 +136,13 @@ class CognitoDatasource implements IAuthDatasource {
   }
 
   @override
-  Future<List<UserDto>> getListUsersInGroup({required String group}) async {
+  Future<List<UserInfo>> getListUsersInGroup({required String group}) async {
     try {
       final response = await _httpClient.post('/list-users-in-group', data: {
         "group": group,
       });
 
-      return UserDto.fromMaps(response.data["users"]);
+      return UserInfoAdapter.fromJsonList(response.data["users"]);
     } on Failure catch (e, stackTrace) {
       if (e is TimeOutError) {
         throw NoInternetConnectionError();
@@ -156,7 +156,7 @@ class CognitoDatasource implements IAuthDatasource {
   }
 
   @override
-  Future<UserDto> adminUpdateUser({
+  Future<UserInfo> adminUpdateUser({
     required String email,
     required String name,
     required RoleEnum role,
@@ -172,7 +172,7 @@ class CognitoDatasource implements IAuthDatasource {
         "enabled": enabled,
       });
 
-      return UserDto.fromMap(response.data["user"]);
+      return UserInfoAdapter.fromJson(response.data["user"]);
     } on Failure catch (e, stackTrace) {
       if (e is TimeOutError) {
         throw NoInternetConnectionError();
@@ -190,7 +190,7 @@ class CognitoDatasource implements IAuthDatasource {
     try {
       final response = await _httpClient.get('/get-all-users');
 
-      return UserDto.fromMaps(response.data["users"]);
+      return UserInfoAdapter.fromJsonList(response.data["users"]);
     } on Failure catch (e, stackTrace) {
       if (e is TimeOutError) {
         throw NoInternetConnectionError();

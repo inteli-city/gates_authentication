@@ -3,19 +3,13 @@ import 'package:gates_microapp_flutter/domain/enum/group_enum.dart';
 import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
 import 'package:gates_microapp_flutter/domain/enum/user_status_enum.dart';
 
-class UserDto extends UserInfo {
-  UserDto({
-    required super.email,
-    required super.userId,
-    required super.name,
-    required super.role,
-    required super.groups,
-    required super.enabled,
-    required super.status,
-  });
+class UserInfoAdapter {
+  static List<UserInfo> fromJsonList(List<dynamic> json) {
+    return json.map((e) => fromJson(e)).toList();
+  }
 
-  factory UserDto.fromMap(Map<String, dynamic> json) {
-    return UserDto(
+  static UserInfo fromJson(Map<String, dynamic> json) {
+    return UserInfo(
       email: json['email'],
       userId: json['user_id'],
       name: json['name'],
@@ -30,17 +24,13 @@ class UserDto extends UserInfo {
     );
   }
 
-  static List<UserDto> fromMaps(List array) {
-    return array.map((e) => UserDto.fromMap(e)).toList();
-  }
-
-  Map<String, dynamic> toMap() {
+  static Map<String, dynamic> toJson(UserInfo user) {
     return {
-      'email': email,
-      'user_id': userId,
-      'name': name,
-      'role': role.name,
-      'groups': groups,
+      'email': user.email,
+      'user_id': user.userId,
+      'name': user.name,
+      'role': user.role.name,
+      'groups': user.groups,
     };
   }
 }
