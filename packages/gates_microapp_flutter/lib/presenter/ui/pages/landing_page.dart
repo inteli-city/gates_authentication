@@ -50,8 +50,8 @@ class LandingPage extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            Image.network(
-                              'https://intelicity-assets.s3.sa-east-1.amazonaws.com/gates_logo.png',
+                            Image.asset(
+                              'packages/gates_microapp_flutter/assets/gates_logo.png',
                             ),
                             const SizedBox(
                               height: 8,

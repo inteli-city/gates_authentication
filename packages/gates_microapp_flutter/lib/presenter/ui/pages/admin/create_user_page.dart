@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/core/auth_controller.dart';
 import 'package:gates_microapp_flutter/domain/enum/group_enum.dart';
@@ -134,37 +135,41 @@ class _CreateUserPageState extends State<CreateUserPage> {
                   );
                 },
               ),
-              // prefixIcon: Icons.diversity_3,
               const SizedBox(height: 16),
-              ButtonCustom(
-                text: S.of(context).register,
-                isLoading: controller.state is BasicLoadingState,
-                onPressed: () async {
-                  if (formKey.currentState!.validate()) {
-                    await controller.createUser(
-                        emailController.text,
-                        nameController.text,
-                        role!,
-                        groups
-                            .where((element) => element.isSelected)
-                            .map((e) => e.groupName.name)
-                            .toList());
-                  }
-                  if (controller.state is BasicInitialState) {
-                    setState(() {
-                      formKey.currentState!.reset();
-                      emailController.clear();
-                      nameController.clear();
-                      role = null;
-                      groups = [];
-                      for (GroupEnum item in authController.user!.groups) {
-                        groups.add(
-                            GroupModel(groupName: item, isSelected: false));
-                      }
-                    });
-                  }
-                },
-              ),
+              Observer(builder: (_) {
+                return ButtonCustom(
+                  text: S.of(context).register,
+                  isLoading: controller.state is BasicLoadingState,
+                  onPressed: controller.state is BasicLoadingState
+                      ? () {}
+                      : () async {
+                          if (formKey.currentState!.validate()) {
+                            await controller.createUser(
+                                emailController.text,
+                                nameController.text,
+                                role!,
+                                groups
+                                    .where((element) => element.isSelected)
+                                    .map((e) => e.groupName.name)
+                                    .toList());
+                          }
+                          if (controller.state is BasicInitialState) {
+                            setState(() {
+                              formKey.currentState!.reset();
+                              emailController.clear();
+                              nameController.clear();
+                              role = null;
+                              groups = [];
+                              for (GroupEnum item
+                                  in authController.user!.groups) {
+                                groups.add(GroupModel(
+                                    groupName: item, isSelected: false));
+                              }
+                            });
+                          }
+                        },
+                );
+              }),
             ],
           )),
     );

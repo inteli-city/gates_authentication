@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -12,8 +10,6 @@ import 'package:gates_microapp_flutter/domain/errors/errors.dart';
 import 'package:gates_microapp_flutter/domain/repositories/auth_repository_interface.dart';
 import 'package:gates_microapp_flutter/generated/l10n.dart';
 import 'package:gates_microapp_flutter/infra/datasource/auth_datasource_interface.dart';
-import 'package:gates_microapp_flutter/shared/helpers/enums/http_status_code_enum.dart';
-import 'package:gates_microapp_flutter/shared/helpers/functions/get_http_status_function.dart';
 import 'package:logger/logger.dart';
 
 class AuthRepositoryCognito implements IAuthRepository {
@@ -152,9 +148,9 @@ class AuthRepositoryCognito implements IAuthRepository {
           email: email, name: name, role: role, groups: groups);
       return const Right(unit);
     } on DioException catch (e) {
-      HttpStatusCodeEnum errorType = getHttpStatusFunction(
-          e.response?.statusCode ?? HttpStatus.badRequest);
-      return Left(ErrorRequest(message: errorType.errorMessage));
+      // HttpStatusCodeEnum errorType = getHttpStatusFunction(
+      //     e.response?.statusCode ?? HttpStatus.badRequest);
+      return left(ErrorRequest(message: e.response!.data));
     }
   }
 
@@ -165,9 +161,7 @@ class AuthRepositoryCognito implements IAuthRepository {
       var users = await datasource.getListUsersInGroup(group: group);
       return Right(users);
     } on DioException catch (e) {
-      HttpStatusCodeEnum errorType = getHttpStatusFunction(
-          e.response?.statusCode ?? HttpStatus.badRequest);
-      return Left(ErrorRequest(message: errorType.errorMessage));
+      return left(ErrorRequest(message: e.response!.data));
     }
   }
 
@@ -188,9 +182,7 @@ class AuthRepositoryCognito implements IAuthRepository {
         enabled: enabled,
       ));
     } on DioException catch (e) {
-      HttpStatusCodeEnum errorType = getHttpStatusFunction(
-          e.response?.statusCode ?? HttpStatus.badRequest);
-      return Left(ErrorRequest(message: errorType.errorMessage));
+      return left(ErrorRequest(message: e.response!.data));
     }
   }
 
@@ -199,9 +191,7 @@ class AuthRepositoryCognito implements IAuthRepository {
     try {
       return Right(await datasource.getAllUsers());
     } on DioException catch (e) {
-      HttpStatusCodeEnum errorType = getHttpStatusFunction(
-          e.response?.statusCode ?? HttpStatus.badRequest);
-      return Left(ErrorRequest(message: errorType.errorMessage));
+      return left(ErrorRequest(message: e.response!.data));
     }
   }
 }
