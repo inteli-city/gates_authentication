@@ -19,8 +19,8 @@ class DioHttpClient extends IHttpClient {
     _dio = Dio(
       BaseOptions(
         baseUrl: baseApiUrl,
-        connectTimeout: const Duration(seconds: 5),
-        receiveTimeout: const Duration(seconds: 5),
+        connectTimeout: const Duration(seconds: 30),
+        receiveTimeout: const Duration(seconds: 30),
       ),
     );
     _dio.options.headers.addAll(headers);
