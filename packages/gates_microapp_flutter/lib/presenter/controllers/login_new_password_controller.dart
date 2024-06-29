@@ -58,8 +58,8 @@ abstract class LoginNewPasswordControllerBase with Store {
     setState(BasicLoadingState());
     var result = await _confirmNewPassword(newPassword);
     setState(result.fold((e) {
-      logger.e(e.message);
-      GlobalSnackBar.error(e.message);
+      logger.e(e.errorMessage);
+      GlobalSnackBar.error(e.errorMessage);
       return BasicErrorState(error: e);
     }, (user) {
       Modular.to.navigate('/');

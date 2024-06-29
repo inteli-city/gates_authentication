@@ -28,7 +28,7 @@ abstract class AuthControllerBase with Store {
   Future<void> signOut() async {
     final result = await _logout();
     result.fold((l) {
-      logger.d('error on logout: ${l.message}');
+      logger.d('error on logout: ${l.errorMessage}');
     }, (r) {
       setUser(null);
       logger.d('logout success: $user');

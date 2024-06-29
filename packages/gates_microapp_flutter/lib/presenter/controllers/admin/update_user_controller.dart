@@ -43,8 +43,8 @@ abstract class UpdateUserControllerBase with Store {
       enabled: enabled,
     );
     setState(result.fold((e) {
-      logger.e(e.message);
-      GlobalSnackBar.error(e.message);
+      logger.e(e.errorMessage);
+      GlobalSnackBar.error(e.errorMessage);
       return BasicErrorState(error: e);
     }, (_) {
       GlobalSnackBar.success(S.current.updateUserSuccess);

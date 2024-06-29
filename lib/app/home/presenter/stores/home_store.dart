@@ -22,7 +22,7 @@ abstract class HomeStoreBase with Store {
       this._getParams, this.logger, this._authController, this._setParams) {
     if (Modular.args.uri.toString().contains('/?')) {
       final result = _setParams(Modular.args.uri);
-      result.fold((l) => logger.i(l.message), (r) => null);
+      result.fold((l) => logger.i(l.errorMessage), (r) => null);
     }
     checkParams();
     _authController.checkLogin().then((value) {
@@ -66,7 +66,7 @@ abstract class HomeStoreBase with Store {
   void checkParams() {
     final result = _getParams();
     result.fold((l) {
-      error = l.message;
+      error = l.errorMessage;
       params = null;
       logger.i('Error: $error');
     }, (r) {

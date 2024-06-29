@@ -63,34 +63,19 @@
     "passwordSpecialCharacter": "A senha deve conter pelo menos um caractere especial (ex: !@#$%^&*)",
 
     "authErrorsSchema": "{schema, select, invalidStateException{Parece que a operação solicitada não é válida no momento. Por favor, tente novamente mais tarde.} codeDeliveryFailure{Falha ao enviar código para o e-mail, tente novamente} codeMismatch{Código fornecido está errado, tente novamente} invalidParameter{Parece que um dos campos foi preenchido de forma incorreta. Por favor, verifique e tente novamente.} usernameExists{Já existe um cadastro com este e-mail} notAuthorized{Você não tem autorização para realizar esta operação.} incorrectPassword{Usuário ou senha incorretos} userNotConfirmed{Usuário não confirmado, contate um administrador} signedOut{Não é possível realizar a operação solicitada porque você está desconectado. Por favor, faça login e tente novamente.} limitExceeded{Muitas tentativas em sequência, tente novamente mais tarde} tooManyFailedAttempts{Você fez muitas tentativas falhas para esta ação. Por favor, aguarde um momento e tente novamente mais tarde.} userNotFound{Não encontramos este e-mail cadastrado} internalError{Estamos com problemas internos, tente mais tarde} invalidPasswordException{A senha deve ter pelo menos 8 caracteres, incluindo 1 número, 1 letra maiúscula, 1 letra minúscula e 1 caractere especial.} other{Ocorreu algum erro desconhecido}}",
-    "entityErrorMessage": "Campo {entityErrorMessage} não é válido",
-    "@entityErrorMessage" : {
+
+    "noInternetConnectionErrorMessage": "Sem conexão com a internet",
+    "inQueueNoInternetConnectionErrorMessage": "Sem conexão porém a cada 5 minutos tentaremos enviar novamente",
+
+    "localStorageErrorMessage": "Armazenamento local não disponível: {localStorageErrorMessage}",
+    "@localStorageErrorMessage" : {
         "placeholders": {
             "placeholders": {
-                "restaurantName": {}
+                "localStorageErrorMessage": {}
             }
         }
     },
 
-    "emptyListErrorMessage": "Lista vazia, itens não encontrados para essa requisição",
-
-    "contactError": "Erro ao enviar mensagem, tente novamente mais tarde.",
-
-    "requestErrorMessage": "{message}",
-    "@requestErrorMessage" : {
-        "placeholders": {
-            "placeholders": {
-                "restaurantName": {}
-            }
-        }
-    },
-
-    "noItemsFoundErrorMessage": "Itens não encontrados para: {message}",
-    "@noItemsFoundErrorMessage" : {
-        "placeholders": {
-            "placeholders": {
-                "restaurantName": {}
-            }
-        }
-    }
+    "noDataFoundError": "Nenhum dado encontrado",
+    "unknownError": "Erro desconhecido, por favor, tente novamente"
 }

@@ -47,15 +47,10 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': 'Ocorreu algum erro desconhecido',
           })}";
 
-  static String m1(placeholders, entityErrorMessage) =>
-      "Campo ${entityErrorMessage} não é válido";
+  static String m1(placeholders, localStorageErrorMessage) =>
+      "Armazenamento local não disponível: ${localStorageErrorMessage}";
 
-  static String m2(placeholders, message) =>
-      "Itens não encontrados para: ${message}";
-
-  static String m3(placeholders, message) => "${message}";
-
-  static String m4(schema) => "${Intl.select(schema, {
+  static String m2(schema) => "${Intl.select(schema, {
             'ADMIN_COLLABORATOR': 'Colaborador administrador',
             'COLLABORATOR': 'Colaborador',
             'ADMIN_USER': 'Administrador',
@@ -63,9 +58,9 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': '',
           })}";
 
-  static String m5(placeholders, textSubErrorHome) => "${textSubErrorHome}";
+  static String m3(placeholders, textSubErrorHome) => "${textSubErrorHome}";
 
-  static String m6(schema) => "${Intl.select(schema, {
+  static String m4(schema) => "${Intl.select(schema, {
             'UNCONFIRMED': 'Não confirmado',
             'CONFIRMED': 'Confirmado',
             'ARCHIVED': 'Arquivado',
@@ -89,18 +84,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirme a nova senha"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirme a senha"),
-        "contactError": MessageLookupByLibrary.simpleMessage(
-            "Erro ao enviar mensagem, tente novamente mais tarde."),
         "createUser": MessageLookupByLibrary.simpleMessage("Criar Usuário"),
         "createUserSuccess":
             MessageLookupByLibrary.simpleMessage("Usuário criado com sucesso"),
         "createUserText": MessageLookupByLibrary.simpleMessage(
             "Preencha as informações do usuário a ser criado:"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
-        "emptyListErrorMessage": MessageLookupByLibrary.simpleMessage(
-            "Lista vazia, itens não encontrados para essa requisição"),
         "enabled": MessageLookupByLibrary.simpleMessage("Habilitado"),
-        "entityErrorMessage": m1,
         "fieldConfirmPasswordInvalid":
             MessageLookupByLibrary.simpleMessage("As senhas não conferem"),
         "fieldEmailInvalid":
@@ -112,8 +102,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
         "id": MessageLookupByLibrary.simpleMessage("ID"),
+        "inQueueNoInternetConnectionErrorMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "Sem conexão porém a cada 5 minutos tentaremos enviar novamente"),
         "loadingInformation":
             MessageLookupByLibrary.simpleMessage("Carregando informações..."),
+        "localStorageErrorMessage": m1,
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginNewPasswordText": MessageLookupByLibrary.simpleMessage(
             "Por favor, informe sua nova senha"),
@@ -132,7 +126,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nova senha necessária"),
         "newPasswordPageText": MessageLookupByLibrary.simpleMessage(
             "Preencha o código recebido por e-mail e sua nova senha para redefini-la"),
-        "noItemsFoundErrorMessage": m2,
+        "noDataFoundError":
+            MessageLookupByLibrary.simpleMessage("Nenhum dado encontrado"),
+        "noInternetConnectionErrorMessage":
+            MessageLookupByLibrary.simpleMessage("Sem conexão com a internet"),
         "password": MessageLookupByLibrary.simpleMessage("Senha"),
         "passwordLowercase": MessageLookupByLibrary.simpleMessage(
             "A senha deve conter pelo menos uma letra minúscula"),
@@ -149,11 +146,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "register": MessageLookupByLibrary.simpleMessage("Cadastrar"),
         "registerUser":
             MessageLookupByLibrary.simpleMessage("Registrar Usuário"),
-        "requestErrorMessage": m3,
         "resetPasswordPageText": MessageLookupByLibrary.simpleMessage(
             "Digite o e-mail que você usou para criar sua conta para que possamos enviar um código para redefinir sua senha"),
         "role": MessageLookupByLibrary.simpleMessage("Função"),
-        "roleSchema": m4,
+        "roleSchema": m2,
         "roleTooltip": MessageLookupByLibrary.simpleMessage(
             "Administrador: possui acesso total a gestão de usuários do sistema.\nUser: possui acesso apenas de autenticação de usuário."),
         "send": MessageLookupByLibrary.simpleMessage("Enviar"),
@@ -163,11 +159,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Permissões de Sistema"),
         "textErrorHome": MessageLookupByLibrary.simpleMessage(
             "Foi encontrado um erro nos parâmetros, seguintes parâmetros são necessários: "),
-        "textSubErrorHome": m5,
+        "textSubErrorHome": m3,
+        "unknownError": MessageLookupByLibrary.simpleMessage(
+            "Erro desconhecido, por favor, tente novamente"),
         "updateUser": MessageLookupByLibrary.simpleMessage("Atualizar usuário"),
         "updateUserSuccess": MessageLookupByLibrary.simpleMessage(
             "Usuário atualizado com sucesso"),
-        "userStatusSchema": m6,
+        "userStatusSchema": m4,
         "verifyEmail":
             MessageLookupByLibrary.simpleMessage("Verifique seu e-mail")
       };

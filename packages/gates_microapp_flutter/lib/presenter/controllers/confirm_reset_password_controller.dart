@@ -66,8 +66,8 @@ abstract class ConfirmResetPasswordControllerBase with Store {
     setState(BasicLoadingState());
     var result = await _confirmResetPassword(_email, code, newPassword);
     setState(result.fold((e) {
-      logger.e(e.message);
-      GlobalSnackBar.error(e.message);
+      logger.e(e.errorMessage);
+      GlobalSnackBar.error(e.errorMessage);
       return BasicErrorState(error: e);
     }, (user) {
       Modular.to.navigate('/');

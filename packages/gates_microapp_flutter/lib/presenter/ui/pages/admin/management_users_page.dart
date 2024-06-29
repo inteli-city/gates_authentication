@@ -45,7 +45,7 @@ class _ManagementUsersPageState extends State<ManagementUsersPage> {
                     style: AppTextStyles.headline1,
                   ),
                   const SizedBox(height: 16),
-                  Text('Erro ao carregar dados: ${state.error.message}')
+                  Text('Erro ao carregar dados: ${state.error.errorMessage}')
                 ],
               )
             : state is ManagementUsersSuccessState

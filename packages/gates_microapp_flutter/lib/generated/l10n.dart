@@ -631,53 +631,54 @@ class S {
     );
   }
 
-  /// `Field {entityErrorMessage} is not valid`
-  String entityErrorMessage(Object placeholders, Object entityErrorMessage) {
+  /// `No internet connection`
+  String get noInternetConnectionErrorMessage {
     return Intl.message(
-      'Field $entityErrorMessage is not valid',
-      name: 'entityErrorMessage',
-      desc: '',
-      args: [placeholders, entityErrorMessage],
-    );
-  }
-
-  /// `List is empty, no items found for this request`
-  String get emptyListErrorMessage {
-    return Intl.message(
-      'List is empty, no items found for this request',
-      name: 'emptyListErrorMessage',
+      'No internet connection',
+      name: 'noInternetConnectionErrorMessage',
       desc: '',
       args: [],
     );
   }
 
-  /// `Error sending message, please try again later.`
-  String get contactError {
+  /// `No internet connection but we will try to send again every 5 minutes`
+  String get inQueueNoInternetConnectionErrorMessage {
     return Intl.message(
-      'Error sending message, please try again later.',
-      name: 'contactError',
+      'No internet connection but we will try to send again every 5 minutes',
+      name: 'inQueueNoInternetConnectionErrorMessage',
       desc: '',
       args: [],
     );
   }
 
-  /// `{message}`
-  String requestErrorMessage(Object placeholders, Object message) {
+  /// `Local storage error: {localStorageErrorMessage}`
+  String localStorageErrorMessage(
+      Object placeholders, Object localStorageErrorMessage) {
     return Intl.message(
-      '$message',
-      name: 'requestErrorMessage',
+      'Local storage error: $localStorageErrorMessage',
+      name: 'localStorageErrorMessage',
       desc: '',
-      args: [placeholders, message],
+      args: [placeholders, localStorageErrorMessage],
     );
   }
 
-  /// `No items found for {message}`
-  String noItemsFoundErrorMessage(Object placeholders, Object message) {
+  /// `No data found`
+  String get noDataFoundError {
     return Intl.message(
-      'No items found for $message',
-      name: 'noItemsFoundErrorMessage',
+      'No data found',
+      name: 'noDataFoundError',
       desc: '',
-      args: [placeholders, message],
+      args: [],
+    );
+  }
+
+  /// `Unknown error, please try again`
+  String get unknownError {
+    return Intl.message(
+      'Unknown error, please try again',
+      name: 'unknownError',
+      desc: '',
+      args: [],
     );
   }
 }

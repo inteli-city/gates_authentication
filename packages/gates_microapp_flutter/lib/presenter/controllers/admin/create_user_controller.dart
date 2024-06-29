@@ -32,8 +32,8 @@ abstract class CreateUserControllerBase with Store {
     final result = await _adminCreateUser(
         email: email, name: name, role: role, groups: selectedGroups);
     setState(result.fold((e) {
-      logger.e(e.message);
-      GlobalSnackBar.error(e.message);
+      logger.e(e.errorMessage);
+      GlobalSnackBar.error(e.errorMessage);
       return BasicErrorState(error: e);
     }, (_) {
       GlobalSnackBar.success(S.current.createUserSuccess);

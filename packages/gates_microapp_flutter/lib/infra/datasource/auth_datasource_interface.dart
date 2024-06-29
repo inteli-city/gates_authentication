@@ -9,7 +9,7 @@ abstract class IAuthDatasource {
       {required String email, required String password});
   Future<void> confirmNewPassword({required String newPassword});
   Future<void> logout();
-  Future<LoggedUserDto?> getLoggedUser();
+  Future<LoggedUserDto> getLoggedUser();
   Future<void> resetPassword({required String email});
   Future<void> confirmResetPassword(
       {required String email,

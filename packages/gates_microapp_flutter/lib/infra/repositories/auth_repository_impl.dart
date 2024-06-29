@@ -5,11 +5,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/domain/entities/logged_user_info.dart';
 import 'package:gates_microapp_flutter/domain/entities/user_info.dart';
 import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
-import 'package:gates_microapp_flutter/domain/errors/auth_errors.dart';
-import 'package:gates_microapp_flutter/domain/errors/errors.dart';
 import 'package:gates_microapp_flutter/domain/repositories/auth_repository_interface.dart';
 import 'package:gates_microapp_flutter/generated/l10n.dart';
 import 'package:gates_microapp_flutter/infra/datasource/auth_datasource_interface.dart';
+import 'package:gates_microapp_flutter/shared/helpers/errors/errors.dart';
 import 'package:logger/logger.dart';
 
 class AuthRepositoryCognito implements IAuthRepository {
@@ -56,14 +55,11 @@ class AuthRepositoryCognito implements IAuthRepository {
   Future<Either<Failure, LoggedUserInfo>> getLoggedUser() async {
     try {
       final user = await datasource.getLoggedUser();
-      if (user != null) {
-        return Right(user);
-      }
-      return Left(AuthError(
-        message: S.current.authErrorsSchema('other'),
-      ));
-    } catch (e) {
-      return left(_handleAmplifyError(e));
+      return Right(user);
+    } on Failure catch (e) {
+      return Left(e);
+    } on Exception catch (exception, stackTrace) {
+      return Left(UnknownError(stackTrace: stackTrace));
     }
   }
 
@@ -93,47 +89,91 @@ class AuthRepositoryCognito implements IAuthRepository {
 
   AuthError _handleAmplifyError(e) {
     logger.e(e);
+    var stackTrace = StackTrace.current;
     if (e is InvalidParameterException) {
-      return AuthError(message: S.current.authErrorsSchema('invalidParameter'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('invalidParameter'),
+        stackTrace: stackTrace,
+      );
     } else if (e is LimitExceededException) {
-      return AuthError(message: S.current.authErrorsSchema('limitExceeded'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('limitExceeded'),
+        stackTrace: stackTrace,
+      );
     } else if (e is TooManyFailedAttemptsException) {
       return AuthError(
-          message: S.current.authErrorsSchema('tooManyFailedAttempts'));
+        errorMessage: S.current.authErrorsSchema('tooManyFailedAttempts'),
+        stackTrace: stackTrace,
+      );
     } else if (e is InvalidPasswordException) {
       return AuthError(
-          message: S.current.authErrorsSchema('invalidPasswordException'));
+        errorMessage: S.current.authErrorsSchema('invalidPasswordException'),
+        stackTrace: stackTrace,
+      );
     } else if (e is UserNotFoundException) {
-      return AuthError(message: S.current.authErrorsSchema('userNotFound'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('userNotFound'),
+        stackTrace: stackTrace,
+      );
     } else if (e is InternalErrorException) {
-      return AuthError(message: S.current.authErrorsSchema('internalError'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('internalError'),
+        stackTrace: stackTrace,
+      );
     } else if (e is CodeMismatchException) {
-      return AuthError(message: S.current.authErrorsSchema('codeMismatch'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('codeMismatch'),
+        stackTrace: stackTrace,
+      );
     } else if (e is SignedOutException) {
-      return AuthError(message: S.current.authErrorsSchema('signedOut'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('signedOut'),
+        stackTrace: stackTrace,
+      );
     } else if (e is NotAuthorizedServiceException) {
       if (e.message.contains('password')) {
         return AuthError(
-            message: S.current.authErrorsSchema('incorrectPassword'));
+          errorMessage: S.current.authErrorsSchema('incorrectPassword'),
+          stackTrace: stackTrace,
+        );
       }
-      return AuthError(message: S.current.authErrorsSchema('notAuthorized'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('notAuthorized'),
+        stackTrace: stackTrace,
+      );
     } else if (e is UserNotConfirmedException) {
-      return AuthError(message: S.current.authErrorsSchema('userNotConfirmed'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('userNotConfirmed'),
+        stackTrace: stackTrace,
+      );
     } else if (e is UsernameExistsException) {
-      return AuthError(message: S.current.authErrorsSchema('usernameExists'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('usernameExists'),
+        stackTrace: stackTrace,
+      );
     } else if (e is InvalidParameterException) {
-      return AuthError(message: S.current.authErrorsSchema('invalidParameter'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('invalidParameter'),
+        stackTrace: stackTrace,
+      );
     } else if (e is CodeDeliveryFailureException) {
       return AuthError(
-          message: S.current.authErrorsSchema('codeDeliveryFailure'));
+        errorMessage: S.current.authErrorsSchema('codeDeliveryFailure'),
+        stackTrace: stackTrace,
+      );
     } else if (e is InvalidStateException) {
       return AuthError(
-          message: S.current.authErrorsSchema('invalidStateException'));
+        errorMessage: S.current.authErrorsSchema('invalidStateException'),
+        stackTrace: stackTrace,
+      );
     } else if (e is NewPasswordNecessaryError) {
-      return NewPasswordNecessaryError();
+      return NewPasswordNecessaryError(
+        stackTrace: stackTrace,
+      );
     }
     return AuthError(
-      message: S.current.authErrorsSchema('other'),
+      errorMessage: S.current.authErrorsSchema('other'),
+      stackTrace: stackTrace,
     );
   }
 
@@ -148,9 +188,8 @@ class AuthRepositoryCognito implements IAuthRepository {
           email: email, name: name, role: role, groups: groups);
       return const Right(unit);
     } on DioException catch (e) {
-      // HttpStatusCodeEnum errorType = getHttpStatusFunction(
-      //     e.response?.statusCode ?? HttpStatus.badRequest);
-      return left(ErrorRequest(message: e.response!.data));
+      return left(CreateUserError(
+          errorMessage: e.response!.data, stackTrace: e.stackTrace));
     }
   }
 
@@ -161,7 +200,8 @@ class AuthRepositoryCognito implements IAuthRepository {
       var users = await datasource.getListUsersInGroup(group: group);
       return Right(users);
     } on DioException catch (e) {
-      return left(ErrorRequest(message: e.response!.data));
+      return left(ListUsersError(
+          errorMessage: e.response!.data, stackTrace: e.stackTrace));
     }
   }
 
@@ -182,7 +222,8 @@ class AuthRepositoryCognito implements IAuthRepository {
         enabled: enabled,
       ));
     } on DioException catch (e) {
-      return left(ErrorRequest(message: e.response!.data));
+      return left(UpdateUserError(
+          errorMessage: e.response!.data, stackTrace: e.stackTrace));
     }
   }
 
@@ -191,7 +232,8 @@ class AuthRepositoryCognito implements IAuthRepository {
     try {
       return Right(await datasource.getAllUsers());
     } on DioException catch (e) {
-      return left(ErrorRequest(message: e.response!.data));
+      return left(ListUsersError(
+          errorMessage: e.response!.data, stackTrace: e.stackTrace));
     }
   }
 }

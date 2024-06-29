@@ -32,8 +32,8 @@ abstract class ForgotPasswordControllerBase with Store {
     setState(BasicLoadingState());
     var result = await _resetPassword(email: email);
     setState(result.fold((e) {
-      logger.e(e.message);
-      GlobalSnackBar.error(e.message);
+      logger.e(e.errorMessage);
+      GlobalSnackBar.error(e.errorMessage);
       return BasicErrorState(error: e);
     }, (user) {
       Modular.to.pushNamed('/login/new-password', arguments: email);
