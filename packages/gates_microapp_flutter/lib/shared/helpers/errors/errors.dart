@@ -52,37 +52,9 @@ class AuthError extends Failure {
 class NewPasswordNecessaryError extends AuthError {
   NewPasswordNecessaryError({
     required super.stackTrace,
-  }) : super(errorMessage: 'Nova senha necessária');
+  }) : super(errorMessage: S.current.newPasswordNecessaryError);
 }
 
 class LogoutError extends Failure {
-  LogoutError() : super(errorMessage: 'Erro ao fazer logout');
-}
-
-class CreateUserError extends Failure {
-  CreateUserError({
-    required super.stackTrace,
-    required super.errorMessage,
-  });
-}
-
-class ListUsersError extends Failure {
-  ListUsersError({
-    required super.stackTrace,
-    required super.errorMessage,
-  });
-}
-
-class UserLoginError extends Failure {
-  UserLoginError({
-    required super.stackTrace,
-    required super.errorMessage,
-  });
-}
-
-class UpdateUserError extends Failure {
-  UpdateUserError({
-    required super.stackTrace,
-    required super.errorMessage,
-  });
+  LogoutError() : super(errorMessage: S.current.logoutError);
 }

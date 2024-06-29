@@ -9,7 +9,7 @@ abstract class GlobalSnackBar {
   static void error(String message) {
     rootScaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
       backgroundColor: AppColors.red,
-      width: 600,
+      width: 500,
       behavior: SnackBarBehavior.floating,
       duration: const Duration(seconds: 5),
       content: Text(

@@ -111,6 +111,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loginNewPasswordText": MessageLookupByLibrary.simpleMessage(
             "Please, enter your new password"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "logoutError":
+            MessageLookupByLibrary.simpleMessage("Error logging out"),
         "manageUsers": MessageLookupByLibrary.simpleMessage("Manage Users"),
         "managementPage":
             MessageLookupByLibrary.simpleMessage("User Management Page"),
@@ -120,6 +122,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "More features coming soon..."),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
+        "newPasswordNecessaryError":
+            MessageLookupByLibrary.simpleMessage("New password is necessary"),
         "newPasswordNeeded":
             MessageLookupByLibrary.simpleMessage("New password needed"),
         "newPasswordPageText": MessageLookupByLibrary.simpleMessage(

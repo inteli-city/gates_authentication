@@ -2,7 +2,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/domain/usecases/reset_password_usecase.dart';
 import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
 import 'package:gates_microapp_flutter/presenter/states/basic_state.dart';
-import 'package:logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 part 'forgot_password_controller.g.dart';
@@ -11,7 +10,6 @@ class ForgotPasswordController = ForgotPasswordControllerBase
     with _$ForgotPasswordController;
 
 abstract class ForgotPasswordControllerBase with Store {
-  final Logger logger = Modular.get();
   final IResetPasswordUsecase _resetPassword;
 
   ForgotPasswordControllerBase(this._resetPassword);
@@ -32,7 +30,6 @@ abstract class ForgotPasswordControllerBase with Store {
     setState(BasicLoadingState());
     var result = await _resetPassword(email: email);
     setState(result.fold((e) {
-      logger.e(e.errorMessage);
       GlobalSnackBar.error(e.errorMessage);
       return BasicErrorState(error: e);
     }, (user) {

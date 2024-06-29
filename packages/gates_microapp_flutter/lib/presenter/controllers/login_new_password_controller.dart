@@ -3,7 +3,6 @@ import 'package:gates_microapp_flutter/domain/usecases/confirm_new_password_usec
 import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
 import 'package:gates_microapp_flutter/helpers/utils/validation_field.dart';
 import 'package:gates_microapp_flutter/presenter/states/basic_state.dart';
-import 'package:logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 part 'login_new_password_controller.g.dart';
@@ -12,7 +11,6 @@ class LoginNewPasswordController = LoginNewPasswordControllerBase
     with _$LoginNewPasswordController;
 
 abstract class LoginNewPasswordControllerBase with Store {
-  final Logger logger = Modular.get();
   final IConfirmNewPasswordUsecase _confirmNewPassword;
 
   LoginNewPasswordControllerBase(this._confirmNewPassword);
@@ -58,7 +56,6 @@ abstract class LoginNewPasswordControllerBase with Store {
     setState(BasicLoadingState());
     var result = await _confirmNewPassword(newPassword);
     setState(result.fold((e) {
-      logger.e(e.errorMessage);
       GlobalSnackBar.error(e.errorMessage);
       return BasicErrorState(error: e);
     }, (user) {

@@ -5,7 +5,6 @@ import 'package:gates_microapp_flutter/domain/usecases/update_user_usecase.dart'
 import 'package:gates_microapp_flutter/generated/l10n.dart';
 import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
 import 'package:gates_microapp_flutter/presenter/states/basic_state.dart';
-import 'package:logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 part 'update_user_controller.g.dart';
@@ -14,7 +13,6 @@ class UpdateUserController = UpdateUserControllerBase
     with _$UpdateUserController;
 
 abstract class UpdateUserControllerBase with Store {
-  final Logger logger = Modular.get();
   var authController = Modular.get<AuthController>();
 
   final IUpdateUserUsecase _updateUser;
@@ -43,7 +41,6 @@ abstract class UpdateUserControllerBase with Store {
       enabled: enabled,
     );
     setState(result.fold((e) {
-      logger.e(e.errorMessage);
       GlobalSnackBar.error(e.errorMessage);
       return BasicErrorState(error: e);
     }, (_) {

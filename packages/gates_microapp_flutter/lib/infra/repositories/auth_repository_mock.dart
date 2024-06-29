@@ -4,6 +4,7 @@ import 'package:gates_microapp_flutter/domain/entities/user_info.dart';
 import 'package:gates_microapp_flutter/domain/enum/group_enum.dart';
 import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
 import 'package:gates_microapp_flutter/domain/enum/user_status_enum.dart';
+import 'package:gates_microapp_flutter/domain/errors/errors.dart';
 import 'package:gates_microapp_flutter/domain/repositories/auth_repository_interface.dart';
 import 'package:gates_microapp_flutter/shared/helpers/errors/errors.dart';
 
@@ -22,6 +23,19 @@ class AuthRepositoryMock implements IAuthRepository {
         GroupEnum.JUNDIAI,
       ],
     ),
+    UserInfo(
+      email: 'user@email.com',
+      enabled: true,
+      name: 'user',
+      role: RoleEnum.USER,
+      status: UserStatusEnum.CONFIRMED,
+      userId: '2',
+      groups: [
+        GroupEnum.GAIA,
+        GroupEnum.FORMULARIOS,
+        GroupEnum.JUNDIAI,
+      ],
+    ),
   ];
 
   LoggedUserInfo? loggedUser;
@@ -32,12 +46,19 @@ class AuthRepositoryMock implements IAuthRepository {
       required String name,
       required RoleEnum role,
       required List<String> groups}) async {
-    if (users.any((element) => element.email == email)) {
-      return Left(AuthError(
-        errorMessage: 'Usuário já cadastrado',
-        stackTrace: StackTrace.current,
-      ));
+    for (var user in users) {
+      if (user.email == email) {
+        return Left(CreateUserError(
+          errorMessage: 'Usuário já cadastrado',
+          stackTrace: StackTrace.current,
+        ));
+      }
     }
+
+    List<GroupEnum> groupsEnum = groups
+        .map((e) => GroupEnum.values
+            .firstWhere((element) => element.name == e.toUpperCase()))
+        .toList();
 
     users.add(UserInfo(
       email: email,
@@ -46,10 +67,7 @@ class AuthRepositoryMock implements IAuthRepository {
       role: role,
       status: UserStatusEnum.CONFIRMED,
       userId: '2',
-      groups: groups
-          .map((e) =>
-              GroupEnum.values.firstWhere((element) => element.toString() == e))
-          .toList(),
+      groups: groupsEnum,
     ));
 
     return const Right(unit);
@@ -62,33 +80,33 @@ class AuthRepositoryMock implements IAuthRepository {
       required RoleEnum role,
       required List<String> groups,
       required bool enabled}) async {
-    if (users.any((element) => element.email == email)) {
-      return Left(AuthError(
-        errorMessage: 'Usuário não encontrado',
-        stackTrace: StackTrace.current,
-      ));
+    for (var user in users) {
+      if (user.email == email) {
+        final userToUpdate = UserInfo(
+          email: email,
+          enabled: enabled,
+          name: name,
+          role: role,
+          status: user.status,
+          userId: user.userId,
+          groups: groups
+              .map((e) => GroupEnum.values
+                  .firstWhere((element) => element.toString() == e))
+              .toList(),
+        );
+
+        users.remove(user);
+
+        users.add(userToUpdate);
+
+        return Right(userToUpdate);
+      }
     }
 
-    final user = users.firstWhere((element) => element.email == email);
-
-    final userToUpdate = UserInfo(
-      email: email,
-      enabled: enabled,
-      name: name,
-      role: role,
-      status: user.status,
-      userId: user.userId,
-      groups: groups
-          .map((e) =>
-              GroupEnum.values.firstWhere((element) => element.toString() == e))
-          .toList(),
-    );
-
-    users.remove(user);
-
-    users.add(userToUpdate);
-
-    return Right(userToUpdate);
+    return Left(UpdateUserError(
+      errorMessage: 'Usuário não encontrado',
+      stackTrace: StackTrace.current,
+    ));
   }
 
   @override
@@ -113,7 +131,7 @@ class AuthRepositoryMock implements IAuthRepository {
   @override
   Future<Either<Failure, LoggedUserInfo>> getLoggedUser() async {
     if (loggedUser == null) {
-      return Left(AuthError(
+      return Left(UserLoginError(
         errorMessage: 'Usuário não logado',
         stackTrace: StackTrace.current,
       ));
@@ -143,6 +161,12 @@ class AuthRepositoryMock implements IAuthRepository {
             stackTrace: StackTrace.current,
           ));
         }
+        if (!user.enabled) {
+          return Left(UserLoginError(
+            errorMessage: 'Usuário desabilitado',
+            stackTrace: StackTrace.current,
+          ));
+        }
         if (user.status == UserStatusEnum.CONFIRMED) {
           loggedUser = LoggedUserInfo(
             email: user.email,
@@ -159,7 +183,7 @@ class AuthRepositoryMock implements IAuthRepository {
         }
       }
     }
-    return Left(AuthError(
+    return Left(UserLoginError(
       errorMessage: 'Usuário não encontrado',
       stackTrace: StackTrace.current,
     ));

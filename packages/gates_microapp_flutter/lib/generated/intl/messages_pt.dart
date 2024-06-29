@@ -112,6 +112,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loginNewPasswordText": MessageLookupByLibrary.simpleMessage(
             "Por favor, informe sua nova senha"),
         "logout": MessageLookupByLibrary.simpleMessage("Sair"),
+        "logoutError":
+            MessageLookupByLibrary.simpleMessage("Erro ao sair da aplicação"),
         "manageUsers":
             MessageLookupByLibrary.simpleMessage("Gerenciar Usuários"),
         "managementPage": MessageLookupByLibrary.simpleMessage(
@@ -122,6 +124,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mais recursos em breve..."),
         "name": MessageLookupByLibrary.simpleMessage("Nome"),
         "newPassword": MessageLookupByLibrary.simpleMessage("Nova senha"),
+        "newPasswordNecessaryError":
+            MessageLookupByLibrary.simpleMessage("Nova senha é necessária"),
         "newPasswordNeeded":
             MessageLookupByLibrary.simpleMessage("Nova senha necessária"),
         "newPasswordPageText": MessageLookupByLibrary.simpleMessage(

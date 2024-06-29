@@ -5,7 +5,6 @@ import 'package:gates_microapp_flutter/domain/usecases/admin_create_user_usecase
 import 'package:gates_microapp_flutter/generated/l10n.dart';
 import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
 import 'package:gates_microapp_flutter/presenter/states/basic_state.dart';
-import 'package:logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 part 'create_user_controller.g.dart';
@@ -14,7 +13,6 @@ class CreateUserController = CreateUserControllerBase
     with _$CreateUserController;
 
 abstract class CreateUserControllerBase with Store {
-  final Logger logger = Modular.get();
   var authController = Modular.get<AuthController>();
   final IAdminCreateUserUsecase _adminCreateUser;
 
@@ -32,7 +30,6 @@ abstract class CreateUserControllerBase with Store {
     final result = await _adminCreateUser(
         email: email, name: name, role: role, groups: selectedGroups);
     setState(result.fold((e) {
-      logger.e(e.errorMessage);
       GlobalSnackBar.error(e.errorMessage);
       return BasicErrorState(error: e);
     }, (_) {

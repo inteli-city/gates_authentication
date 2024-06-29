@@ -15,7 +15,7 @@ class EnvironmentConfig {
     if (ENV == 'LOCAL') {
       return AuthRepositoryMock();
     } else {
-      return AuthRepositoryCognito(
+      return AuthRepositoryImpl(
         Modular.get(),
       );
     }

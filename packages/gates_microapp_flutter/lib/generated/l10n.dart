@@ -681,6 +681,26 @@ class S {
       args: [],
     );
   }
+
+  /// `New password is necessary`
+  String get newPasswordNecessaryError {
+    return Intl.message(
+      'New password is necessary',
+      name: 'newPasswordNecessaryError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error logging out`
+  String get logoutError {
+    return Intl.message(
+      'Error logging out',
+      name: 'logoutError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

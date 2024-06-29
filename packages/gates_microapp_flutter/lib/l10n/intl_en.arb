@@ -76,6 +76,8 @@
     },
 
     "noDataFoundError": "No data found",
-    "unknownError": "Unknown error, please try again"
+    "unknownError": "Unknown error, please try again",
+    "newPasswordNecessaryError": "New password is necessary",
+    "logoutError": "Error logging out"
 
 }

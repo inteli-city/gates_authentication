@@ -77,5 +77,7 @@
     },
 
     "noDataFoundError": "Nenhum dado encontrado",
-    "unknownError": "Erro desconhecido, por favor, tente novamente"
+    "unknownError": "Erro desconhecido, por favor, tente novamente",
+    "newPasswordNecessaryError": "Nova senha é necessária",
+    "logoutError": "Erro ao sair da aplicação"
 }
