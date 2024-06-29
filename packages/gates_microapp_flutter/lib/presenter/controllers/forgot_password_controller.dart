@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/domain/usecases/reset_password_usecase.dart';
-import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
+import 'package:gates_microapp_flutter/shared/helpers/functions/global_snackbar.dart';
 import 'package:gates_microapp_flutter/presenter/states/basic_state.dart';
 import 'package:mobx/mobx.dart';
 

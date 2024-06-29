@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/domain/usecases/confirm_reset_password.dart';
-import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
-import 'package:gates_microapp_flutter/helpers/utils/validation_field.dart';
+import 'package:gates_microapp_flutter/shared/helpers/functions/global_snackbar.dart';
+import 'package:gates_microapp_flutter/shared/helpers/utils/validation_field.dart';
 import 'package:gates_microapp_flutter/presenter/states/basic_state.dart';
 import 'package:mobx/mobx.dart';
 part 'confirm_reset_password_controller.g.dart';

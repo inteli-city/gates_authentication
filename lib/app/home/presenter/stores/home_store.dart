@@ -5,7 +5,7 @@ import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
 import 'package:gates_authentication/app/home/domain/entities/params.dart';
 import 'package:gates_authentication/app/home/domain/usecases/get_params.dart';
 import 'package:gates_authentication/app/home/domain/usecases/set_params.dart';
-import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
+import 'package:gates_microapp_flutter/shared/helpers/functions/global_snackbar.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher.dart';
 part 'home_store.g.dart';

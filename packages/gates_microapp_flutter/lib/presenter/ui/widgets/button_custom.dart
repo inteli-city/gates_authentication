@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gates_microapp_flutter/helpers/utils/screen_helper.dart';
+import 'package:gates_microapp_flutter/shared/helpers/utils/screen_helper.dart';
 import 'package:gates_microapp_flutter/shared/themes/app_colors.dart';
 import 'package:gates_microapp_flutter/shared/themes/app_text_styles.dart';
 

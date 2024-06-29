@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:gates_microapp_flutter/helpers/utils/screen_helper.dart';
+import 'package:gates_microapp_flutter/shared/helpers/utils/screen_helper.dart';
 import 'package:gates_microapp_flutter/shared/themes/app_colors.dart';
 
 class LandingPage extends StatelessWidget {

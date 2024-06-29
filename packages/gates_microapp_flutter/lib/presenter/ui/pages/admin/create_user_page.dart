@@ -5,7 +5,7 @@ import 'package:gates_microapp_flutter/core/auth_controller.dart';
 import 'package:gates_microapp_flutter/domain/enum/group_enum.dart';
 import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
 import 'package:gates_microapp_flutter/generated/l10n.dart';
-import 'package:gates_microapp_flutter/helpers/utils/validation_field.dart';
+import 'package:gates_microapp_flutter/shared/helpers/utils/validation_field.dart';
 import 'package:gates_microapp_flutter/infra/models/group_model.dart';
 import 'package:gates_microapp_flutter/presenter/controllers/admin/create_user_controller.dart';
 import 'package:gates_microapp_flutter/presenter/states/basic_state.dart';

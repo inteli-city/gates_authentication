@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/generated/l10n.dart';
-import 'package:gates_microapp_flutter/helpers/utils/validation_field.dart';
+import 'package:gates_microapp_flutter/shared/helpers/utils/validation_field.dart';
 import 'package:gates_microapp_flutter/presenter/controllers/confirm_reset_password_controller.dart';
 import 'package:gates_microapp_flutter/presenter/states/basic_state.dart';
 import 'package:gates_microapp_flutter/presenter/ui/pages/landing_page.dart';
