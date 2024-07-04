@@ -467,7 +467,7 @@ class S {
     );
   }
 
-  /// `{schema, select, UNCONFIRMED{Unconfirmed} CONFIRMED{Confirmed} ARCHIVED{Archived} UNKNOWN{Unknown} RESET_REQUIRED{Reset Required} FORCE_CHANGE_PASSWORD{First Access Required} other{}}`
+  /// `{schema, select, UNCONFIRMED{Unconfirmed} CONFIRMED{Confirmed} ARCHIVED{Archived} UNKNOWN{Unknown} RESET_REQUIRED{Reset Required} FORCE_CHANGE_PASSWORD{Pending first access} other{}}`
   String userStatusSchema(Object schema) {
     return Intl.select(
       schema,
@@ -477,7 +477,7 @@ class S {
         'ARCHIVED': 'Archived',
         'UNKNOWN': 'Unknown',
         'RESET_REQUIRED': 'Reset Required',
-        'FORCE_CHANGE_PASSWORD': 'First Access Required',
+        'FORCE_CHANGE_PASSWORD': 'Pending first access',
         'other': '',
       },
       name: 'userStatusSchema',

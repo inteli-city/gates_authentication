@@ -67,7 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
             'ARCHIVED': 'Archived',
             'UNKNOWN': 'Unknown',
             'RESET_REQUIRED': 'Reset Required',
-            'FORCE_CHANGE_PASSWORD': 'First Access Required',
+            'FORCE_CHANGE_PASSWORD': 'Pending first access',
             'other': '',
           })}";
 
