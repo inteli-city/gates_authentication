@@ -75,11 +75,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "access": MessageLookupByLibrary.simpleMessage("Acessar"),
         "adminDontUpdateAdmin": MessageLookupByLibrary.simpleMessage(
             "Não é possível editar outro administrador"),
+        "attention": MessageLookupByLibrary.simpleMessage("Atenção"),
         "authErrorsSchema": m0,
         "backToLogin":
             MessageLookupByLibrary.simpleMessage("Voltar para o login"),
         "buttonLogin": MessageLookupByLibrary.simpleMessage("Entrar como"),
         "code": MessageLookupByLibrary.simpleMessage("Código"),
+        "codeDisclaimer": MessageLookupByLibrary.simpleMessage(
+            "Caso não receba o e-mail com o código de verificação, por favor, verifique se digitou o e-mail corretamente. Se o problema persistir, entre em contato com um administrador para confirmar se você está devidamente cadastrado."),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("Confirme a nova senha"),
         "confirmPassword":

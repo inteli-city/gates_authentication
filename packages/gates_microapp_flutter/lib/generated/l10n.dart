@@ -160,6 +160,26 @@ class S {
     );
   }
 
+  /// `Attention`
+  String get attention {
+    return Intl.message(
+      'Attention',
+      name: 'attention',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you do not receive the email with the verification code, please check that you entered the email correctly. If the problem persists, contact an administrator to confirm that you are properly registered.`
+  String get codeDisclaimer {
+    return Intl.message(
+      'If you do not receive the email with the verification code, please check that you entered the email correctly. If the problem persists, contact an administrator to confirm that you are properly registered.',
+      name: 'codeDisclaimer',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Verify email`
   String get verifyEmail {
     return Intl.message(
