@@ -3,9 +3,8 @@ import 'package:gates_microapp_flutter/core/auth_controller.dart';
 import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
 import 'package:gates_microapp_flutter/domain/usecases/update_user_usecase.dart';
 import 'package:gates_microapp_flutter/generated/l10n.dart';
-import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
+import 'package:gates_microapp_flutter/shared/helpers/functions/global_snackbar.dart';
 import 'package:gates_microapp_flutter/presenter/states/basic_state.dart';
-import 'package:logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 part 'update_user_controller.g.dart';
@@ -14,7 +13,6 @@ class UpdateUserController = UpdateUserControllerBase
     with _$UpdateUserController;
 
 abstract class UpdateUserControllerBase with Store {
-  final Logger logger = Modular.get();
   var authController = Modular.get<AuthController>();
 
   final IUpdateUserUsecase _updateUser;
@@ -43,8 +41,7 @@ abstract class UpdateUserControllerBase with Store {
       enabled: enabled,
     );
     setState(result.fold((e) {
-      logger.e(e.message);
-      GlobalSnackBar.error(e.message);
+      GlobalSnackBar.error(e.errorMessage);
       return BasicErrorState(error: e);
     }, (_) {
       GlobalSnackBar.success(S.current.updateUserSuccess);

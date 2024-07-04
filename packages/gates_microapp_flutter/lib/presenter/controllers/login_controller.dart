@@ -1,10 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/core/auth_controller.dart';
-import 'package:gates_microapp_flutter/domain/errors/auth_errors.dart';
 import 'package:gates_microapp_flutter/domain/usecases/login_with_email_usecase.dart';
-import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
+import 'package:gates_microapp_flutter/shared/helpers/functions/global_snackbar.dart';
 import 'package:gates_microapp_flutter/presenter/states/basic_state.dart';
-import 'package:logger/logger.dart';
+import 'package:gates_microapp_flutter/shared/helpers/errors/errors.dart';
 import 'package:mobx/mobx.dart';
 
 part 'login_controller.g.dart';
@@ -13,7 +12,6 @@ class LoginController = LoginControllerBase with _$LoginController;
 
 abstract class LoginControllerBase with Store {
   final ILoginWithEmailUsecase _loginWithEmail;
-  final Logger logger = Modular.get();
   final AuthController _authController;
 
   LoginControllerBase(this._loginWithEmail, this._authController);
@@ -46,8 +44,7 @@ abstract class LoginControllerBase with Store {
     setState(BasicLoadingState());
     final result = await _loginWithEmail(email, password);
     setState(result.fold((e) {
-      logger.e(e.message);
-      GlobalSnackBar.error(e.message);
+      GlobalSnackBar.error(e.errorMessage);
       if (e is NewPasswordNecessaryError) {
         Modular.to.navigate('./login-new-password');
       }

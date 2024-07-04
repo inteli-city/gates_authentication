@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:gates_microapp_flutter/domain/errors/errors.dart';
+
 import 'package:gates_microapp_flutter/domain/repositories/auth_repository_interface.dart';
+import 'package:gates_microapp_flutter/shared/helpers/errors/errors.dart';
 
 abstract class IResetPasswordUsecase {
   Future<Either<Failure, Unit>> call({required String email});

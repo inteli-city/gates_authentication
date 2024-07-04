@@ -1,10 +1,8 @@
-abstract class Failure implements Exception {
-  String get message;
-}
+import 'package:gates_microapp_flutter/shared/helpers/errors/errors.dart';
 
 class InvalidParams extends Failure {
-  InvalidParams(this.message);
-
-  @override
-  final String message;
+  InvalidParams({
+    required super.stackTrace,
+    required super.errorMessage,
+  });
 }

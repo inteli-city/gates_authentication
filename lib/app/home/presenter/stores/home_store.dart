@@ -5,8 +5,7 @@ import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
 import 'package:gates_authentication/app/home/domain/entities/params.dart';
 import 'package:gates_authentication/app/home/domain/usecases/get_params.dart';
 import 'package:gates_authentication/app/home/domain/usecases/set_params.dart';
-import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
-import 'package:logger/logger.dart';
+import 'package:gates_microapp_flutter/shared/helpers/functions/global_snackbar.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher.dart';
 part 'home_store.g.dart';
@@ -16,13 +15,11 @@ class HomeStore = HomeStoreBase with _$HomeStore;
 abstract class HomeStoreBase with Store {
   final GetParams _getParams;
   final SetParams _setParams;
-  final Logger logger;
   final AuthController _authController;
-  HomeStoreBase(
-      this._getParams, this.logger, this._authController, this._setParams) {
+  HomeStoreBase(this._getParams, this._authController, this._setParams) {
     if (Modular.args.uri.toString().contains('/?')) {
       final result = _setParams(Modular.args.uri);
-      result.fold((l) => logger.i(l.message), (r) => null);
+      result.fold((l) {}, (r) => null);
     }
     checkParams();
     _authController.checkLogin().then((value) {
@@ -66,13 +63,11 @@ abstract class HomeStoreBase with Store {
   void checkParams() {
     final result = _getParams();
     result.fold((l) {
-      error = l.message;
+      error = l.errorMessage;
       params = null;
-      logger.i('Error: $error');
     }, (r) {
       params = r;
       error = null;
-      logger.i('Params: ${params!.redirectUri}');
     });
   }
 

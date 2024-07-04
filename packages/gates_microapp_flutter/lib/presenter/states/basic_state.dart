@@ -1,4 +1,4 @@
-import 'package:gates_microapp_flutter/domain/errors/errors.dart';
+import 'package:gates_microapp_flutter/shared/helpers/errors/errors.dart';
 
 abstract class BasicState {
   const BasicState();

@@ -1,29 +1,29 @@
-import 'dart:developer';
-import 'package:gates_microapp_flutter/generated/l10n.dart';
+import 'package:gates_microapp_flutter/shared/helpers/errors/errors.dart';
 
-abstract class Failure implements Exception {
-  final String message;
-
-  Failure({required this.message}) {
-    log('${DateTime.now()} - $message', name: 'Failure');
-  }
+class CreateUserError extends Failure {
+  CreateUserError({
+    required super.stackTrace,
+    required super.errorMessage,
+  });
 }
 
-class EntityError extends Failure {
-  EntityError({required String message})
-      : super(message: S.current.entityErrorMessage('', message));
+class ListUsersError extends Failure {
+  ListUsersError({
+    required super.stackTrace,
+    required super.errorMessage,
+  });
 }
 
-class EmptyList extends Failure {
-  EmptyList() : super(message: S.current.emptyListErrorMessage);
+class UserLoginError extends Failure {
+  UserLoginError({
+    required super.stackTrace,
+    required super.errorMessage,
+  });
 }
 
-class ErrorRequest extends Failure {
-  ErrorRequest({required String message})
-      : super(message: S.current.requestErrorMessage('', message));
-}
-
-class NoItemsFound extends Failure {
-  NoItemsFound({required String message})
-      : super(message: S.current.noItemsFoundErrorMessage('', message));
+class UpdateUserError extends Failure {
+  UpdateUserError({
+    required super.stackTrace,
+    required super.errorMessage,
+  });
 }

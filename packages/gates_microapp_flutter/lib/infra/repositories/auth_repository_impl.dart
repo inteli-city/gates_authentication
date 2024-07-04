@@ -1,37 +1,31 @@
-import 'dart:io';
-
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/domain/entities/logged_user_info.dart';
 import 'package:gates_microapp_flutter/domain/entities/user_info.dart';
 import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
-import 'package:gates_microapp_flutter/domain/errors/auth_errors.dart';
-import 'package:gates_microapp_flutter/domain/errors/errors.dart';
 import 'package:gates_microapp_flutter/domain/repositories/auth_repository_interface.dart';
 import 'package:gates_microapp_flutter/generated/l10n.dart';
 import 'package:gates_microapp_flutter/infra/datasource/auth_datasource_interface.dart';
-import 'package:gates_microapp_flutter/shared/helpers/enums/http_status_code_enum.dart';
-import 'package:gates_microapp_flutter/shared/helpers/functions/get_http_status_function.dart';
-import 'package:logger/logger.dart';
+import 'package:gates_microapp_flutter/shared/helpers/errors/errors.dart';
 
-class AuthRepositoryCognito implements IAuthRepository {
+class AuthRepositoryImpl implements IAuthRepository {
   final IAuthDatasource datasource;
-  final Logger logger = Modular.get();
 
-  AuthRepositoryCognito(this.datasource);
+  AuthRepositoryImpl(this.datasource);
 
   @override
   Future<Either<Failure, LoggedUserInfo>> loginEmail(
       {required String email, required String password}) async {
     try {
-      logger.i('AuthRepositoryImpl.loginEmail');
-      final user =
+      final result =
           await datasource.loginEmail(email: email, password: password);
-      return Right(user);
-    } catch (e) {
-      return left(_handleAmplifyError(e));
+      return Right(result);
+    } on AuthException catch (e) {
+      return Left(_handleAmplifyError(e));
+    } on Failure catch (e) {
+      return Left(e);
+    } on Exception catch (exception, stackTrace) {
+      return Left(UnknownError(stackTrace: stackTrace));
     }
   }
 
@@ -41,8 +35,12 @@ class AuthRepositoryCognito implements IAuthRepository {
     try {
       await datasource.confirmNewPassword(newPassword: newPassword);
       return const Right(unit);
-    } catch (e) {
-      return left(_handleAmplifyError(e));
+    } on AuthException catch (e) {
+      return Left(_handleAmplifyError(e));
+    } on Failure catch (e) {
+      return Left(e);
+    } on Exception catch (exception, stackTrace) {
+      return Left(UnknownError(stackTrace: stackTrace));
     }
   }
 
@@ -51,23 +49,26 @@ class AuthRepositoryCognito implements IAuthRepository {
     try {
       await datasource.logout();
       return const Right(unit);
-    } catch (e) {
-      return left(_handleAmplifyError(e));
+    } on AuthException catch (e) {
+      return Left(_handleAmplifyError(e));
+    } on Failure catch (e) {
+      return Left(e);
+    } on Exception catch (exception, stackTrace) {
+      return Left(UnknownError(stackTrace: stackTrace));
     }
   }
 
   @override
   Future<Either<Failure, LoggedUserInfo>> getLoggedUser() async {
     try {
-      final user = await datasource.getLoggedUser();
-      if (user != null) {
-        return Right(user);
-      }
-      return Left(AuthError(
-        message: S.current.authErrorsSchema('other'),
-      ));
-    } catch (e) {
-      return left(_handleAmplifyError(e));
+      final result = await datasource.getLoggedUser();
+      return Right(result);
+    } on AuthException catch (e) {
+      return Left(_handleAmplifyError(e));
+    } on Failure catch (e) {
+      return Left(e);
+    } on Exception catch (exception, stackTrace) {
+      return Left(UnknownError(stackTrace: stackTrace));
     }
   }
 
@@ -76,8 +77,12 @@ class AuthRepositoryCognito implements IAuthRepository {
     try {
       await datasource.resetPassword(email: email);
       return const Right(unit);
-    } catch (e) {
-      return left(_handleAmplifyError(e));
+    } on AuthException catch (e) {
+      return Left(_handleAmplifyError(e));
+    } on Failure catch (e) {
+      return Left(e);
+    } on Exception catch (exception, stackTrace) {
+      return Left(UnknownError(stackTrace: stackTrace));
     }
   }
 
@@ -90,54 +95,101 @@ class AuthRepositoryCognito implements IAuthRepository {
       await datasource.confirmResetPassword(
           email: email, code: code, newPassword: newPassword);
       return const Right(unit);
-    } catch (e) {
-      return left(_handleAmplifyError(e));
+    } on AuthException catch (e) {
+      return Left(_handleAmplifyError(e));
+    } on Failure catch (e) {
+      return Left(e);
+    } on Exception catch (exception, stackTrace) {
+      return Left(UnknownError(stackTrace: stackTrace));
     }
   }
 
-  AuthError _handleAmplifyError(e) {
-    logger.e(e);
+  AuthError _handleAmplifyError(AuthException e) {
+    final stackTrace = StackTrace.current;
     if (e is InvalidParameterException) {
-      return AuthError(message: S.current.authErrorsSchema('invalidParameter'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('invalidParameter'),
+        stackTrace: stackTrace,
+      );
     } else if (e is LimitExceededException) {
-      return AuthError(message: S.current.authErrorsSchema('limitExceeded'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('limitExceeded'),
+        stackTrace: stackTrace,
+      );
     } else if (e is TooManyFailedAttemptsException) {
       return AuthError(
-          message: S.current.authErrorsSchema('tooManyFailedAttempts'));
+        errorMessage: S.current.authErrorsSchema('tooManyFailedAttempts'),
+        stackTrace: stackTrace,
+      );
     } else if (e is InvalidPasswordException) {
       return AuthError(
-          message: S.current.authErrorsSchema('invalidPasswordException'));
+        errorMessage: S.current.authErrorsSchema('invalidPasswordException'),
+        stackTrace: stackTrace,
+      );
     } else if (e is UserNotFoundException) {
-      return AuthError(message: S.current.authErrorsSchema('userNotFound'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('userNotFound'),
+        stackTrace: stackTrace,
+      );
     } else if (e is InternalErrorException) {
-      return AuthError(message: S.current.authErrorsSchema('internalError'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('internalError'),
+        stackTrace: stackTrace,
+      );
     } else if (e is CodeMismatchException) {
-      return AuthError(message: S.current.authErrorsSchema('codeMismatch'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('codeMismatch'),
+        stackTrace: stackTrace,
+      );
     } else if (e is SignedOutException) {
-      return AuthError(message: S.current.authErrorsSchema('signedOut'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('signedOut'),
+        stackTrace: stackTrace,
+      );
     } else if (e is NotAuthorizedServiceException) {
       if (e.message.contains('password')) {
         return AuthError(
-            message: S.current.authErrorsSchema('incorrectPassword'));
+          errorMessage: S.current.authErrorsSchema('incorrectPassword'),
+          stackTrace: stackTrace,
+        );
       }
-      return AuthError(message: S.current.authErrorsSchema('notAuthorized'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('notAuthorized'),
+        stackTrace: stackTrace,
+      );
     } else if (e is UserNotConfirmedException) {
-      return AuthError(message: S.current.authErrorsSchema('userNotConfirmed'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('userNotConfirmed'),
+        stackTrace: stackTrace,
+      );
     } else if (e is UsernameExistsException) {
-      return AuthError(message: S.current.authErrorsSchema('usernameExists'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('usernameExists'),
+        stackTrace: stackTrace,
+      );
     } else if (e is InvalidParameterException) {
-      return AuthError(message: S.current.authErrorsSchema('invalidParameter'));
+      return AuthError(
+        errorMessage: S.current.authErrorsSchema('invalidParameter'),
+        stackTrace: stackTrace,
+      );
     } else if (e is CodeDeliveryFailureException) {
       return AuthError(
-          message: S.current.authErrorsSchema('codeDeliveryFailure'));
+        errorMessage: S.current.authErrorsSchema('codeDeliveryFailure'),
+        stackTrace: stackTrace,
+      );
     } else if (e is InvalidStateException) {
       return AuthError(
-          message: S.current.authErrorsSchema('invalidStateException'));
+        errorMessage: S.current.authErrorsSchema('invalidStateException'),
+        stackTrace: stackTrace,
+      );
     } else if (e is NewPasswordNecessaryError) {
-      return NewPasswordNecessaryError();
+      return NewPasswordNecessaryError(
+        stackTrace: stackTrace,
+      );
     }
     return AuthError(
-      message: S.current.authErrorsSchema('other'),
+      errorMessage: S.current.authErrorsSchema('other'),
+      stackTrace: stackTrace,
     );
   }
 
@@ -151,10 +203,10 @@ class AuthRepositoryCognito implements IAuthRepository {
       await datasource.adminCreateUser(
           email: email, name: name, role: role, groups: groups);
       return const Right(unit);
-    } on DioException catch (e) {
-      HttpStatusCodeEnum errorType = getHttpStatusFunction(
-          e.response?.statusCode ?? HttpStatus.badRequest);
-      return Left(ErrorRequest(message: errorType.errorMessage));
+    } on Failure catch (e) {
+      return Left(e);
+    } on Exception catch (exception, stackTrace) {
+      return Left(UnknownError(stackTrace: stackTrace));
     }
   }
 
@@ -162,12 +214,12 @@ class AuthRepositoryCognito implements IAuthRepository {
   Future<Either<Failure, List<UserInfo>>> listUsersInGroup(
       {required String group}) async {
     try {
-      var users = await datasource.getListUsersInGroup(group: group);
-      return Right(users);
-    } on DioException catch (e) {
-      HttpStatusCodeEnum errorType = getHttpStatusFunction(
-          e.response?.statusCode ?? HttpStatus.badRequest);
-      return Left(ErrorRequest(message: errorType.errorMessage));
+      var result = await datasource.getListUsersInGroup(group: group);
+      return Right(result);
+    } on Failure catch (e) {
+      return Left(e);
+    } on Exception catch (exception, stackTrace) {
+      return Left(UnknownError(stackTrace: stackTrace));
     }
   }
 
@@ -187,10 +239,10 @@ class AuthRepositoryCognito implements IAuthRepository {
         groups: groups,
         enabled: enabled,
       ));
-    } on DioException catch (e) {
-      HttpStatusCodeEnum errorType = getHttpStatusFunction(
-          e.response?.statusCode ?? HttpStatus.badRequest);
-      return Left(ErrorRequest(message: errorType.errorMessage));
+    } on Failure catch (e) {
+      return Left(e);
+    } on Exception catch (exception, stackTrace) {
+      return Left(UnknownError(stackTrace: stackTrace));
     }
   }
 
@@ -198,10 +250,10 @@ class AuthRepositoryCognito implements IAuthRepository {
   Future<Either<Failure, List<UserInfo>>> getAllUsers() async {
     try {
       return Right(await datasource.getAllUsers());
-    } on DioException catch (e) {
-      HttpStatusCodeEnum errorType = getHttpStatusFunction(
-          e.response?.statusCode ?? HttpStatus.badRequest);
-      return Left(ErrorRequest(message: errorType.errorMessage));
+    } on Failure catch (e) {
+      return Left(e);
+    } on Exception catch (exception, stackTrace) {
+      return Left(UnknownError(stackTrace: stackTrace));
     }
   }
 }

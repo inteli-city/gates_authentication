@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:gates_microapp_flutter/domain/entities/logged_user_info.dart';
 import 'package:gates_microapp_flutter/domain/entities/user_info.dart';
 import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
-import 'package:gates_microapp_flutter/domain/errors/errors.dart';
+import 'package:gates_microapp_flutter/shared/helpers/errors/errors.dart';
 
 abstract class IAuthRepository {
   Future<Either<Failure, List<UserInfo>>> getAllUsers();
