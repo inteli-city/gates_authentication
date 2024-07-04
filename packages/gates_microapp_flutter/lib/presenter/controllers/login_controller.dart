@@ -48,10 +48,12 @@ abstract class LoginControllerBase with Store {
       if (e is NewPasswordNecessaryError) {
         Modular.to.navigate('./login-new-password');
       }
+
       return BasicErrorState(error: e);
     }, (user) {
       _authController.setUser(user);
       Modular.to.navigate('/', arguments: user.role);
+
       return BasicInitialState();
     }));
   }
