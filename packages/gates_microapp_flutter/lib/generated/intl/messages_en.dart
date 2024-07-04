@@ -48,14 +48,10 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': 'An unknown error occurred',
           })}";
 
-  static String m1(placeholders, entityErrorMessage) =>
-      "Field ${entityErrorMessage} is not valid";
+  static String m1(placeholders, localStorageErrorMessage) =>
+      "Local storage error: ${localStorageErrorMessage}";
 
-  static String m2(placeholders, message) => "No items found for ${message}";
-
-  static String m3(placeholders, message) => "${message}";
-
-  static String m4(schema) => "${Intl.select(schema, {
+  static String m2(schema) => "${Intl.select(schema, {
             'ADMIN_COLLABORATOR': 'Admin Collaborator',
             'COLLABORATOR': 'Collaborator',
             'ADMIN_USER': 'Administrator',
@@ -63,15 +59,15 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': '',
           })}";
 
-  static String m5(placeholders, textSubErrorHome) => "${textSubErrorHome} ";
+  static String m3(placeholders, textSubErrorHome) => "${textSubErrorHome} ";
 
-  static String m6(schema) => "${Intl.select(schema, {
+  static String m4(schema) => "${Intl.select(schema, {
             'UNCONFIRMED': 'Unconfirmed',
             'CONFIRMED': 'Confirmed',
             'ARCHIVED': 'Archived',
             'UNKNOWN': 'Unknown',
             'RESET_REQUIRED': 'Reset Required',
-            'FORCE_CHANGE_PASSWORD': 'First Access Required',
+            'FORCE_CHANGE_PASSWORD': 'Pending first access',
             'other': '',
           })}";
 
@@ -80,26 +76,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "access": MessageLookupByLibrary.simpleMessage("Access"),
         "adminDontUpdateAdmin": MessageLookupByLibrary.simpleMessage(
             "Admins can\'t update other admins"),
+        "attention": MessageLookupByLibrary.simpleMessage("Attention"),
         "authErrorsSchema": m0,
         "backToLogin": MessageLookupByLibrary.simpleMessage("Back to login"),
         "buttonLogin": MessageLookupByLibrary.simpleMessage("Sign in as"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
+        "codeDisclaimer": MessageLookupByLibrary.simpleMessage(
+            "If you do not receive the email with the verification code, please check that you entered the email correctly. If the problem persists, contact an administrator to confirm that you are properly registered."),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("Confirm new password"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirme a senha"),
-        "contactError": MessageLookupByLibrary.simpleMessage(
-            "Error sending message, please try again later."),
         "createUser": MessageLookupByLibrary.simpleMessage("Create User"),
         "createUserSuccess":
             MessageLookupByLibrary.simpleMessage("User created successfully"),
         "createUserText": MessageLookupByLibrary.simpleMessage(
             "Fill in the information of the user to be created:"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
-        "emptyListErrorMessage": MessageLookupByLibrary.simpleMessage(
-            "List is empty, no items found for this request"),
         "enabled": MessageLookupByLibrary.simpleMessage("Enabled"),
-        "entityErrorMessage": m1,
         "fieldConfirmPasswordInvalid":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
         "fieldEmailInvalid":
@@ -110,12 +104,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
         "id": MessageLookupByLibrary.simpleMessage("ID"),
+        "inQueueNoInternetConnectionErrorMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "No internet connection but we will try to send again every 5 minutes"),
         "loadingInformation":
             MessageLookupByLibrary.simpleMessage("Loading information..."),
+        "localStorageErrorMessage": m1,
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginNewPasswordText": MessageLookupByLibrary.simpleMessage(
             "Please, enter your new password"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "logoutError":
+            MessageLookupByLibrary.simpleMessage("Error logging out"),
         "manageUsers": MessageLookupByLibrary.simpleMessage("Manage Users"),
         "managementPage":
             MessageLookupByLibrary.simpleMessage("User Management Page"),
@@ -125,11 +125,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "More features coming soon..."),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
+        "newPasswordNecessaryError":
+            MessageLookupByLibrary.simpleMessage("New password is necessary"),
         "newPasswordNeeded":
             MessageLookupByLibrary.simpleMessage("New password needed"),
         "newPasswordPageText": MessageLookupByLibrary.simpleMessage(
             "Fill in the code received by email and your new password to reset it"),
-        "noItemsFoundErrorMessage": m2,
+        "noDataFoundError":
+            MessageLookupByLibrary.simpleMessage("No data found"),
+        "noInternetConnectionErrorMessage":
+            MessageLookupByLibrary.simpleMessage("No internet connection"),
         "password": MessageLookupByLibrary.simpleMessage("Senha"),
         "passwordLowercase": MessageLookupByLibrary.simpleMessage(
             "Password must contain at least one lowercase letter"),
@@ -145,11 +150,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Password must contain at least one uppercase letter"),
         "register": MessageLookupByLibrary.simpleMessage("Cadastrar"),
         "registerUser": MessageLookupByLibrary.simpleMessage("Register User"),
-        "requestErrorMessage": m3,
         "resetPasswordPageText": MessageLookupByLibrary.simpleMessage(
             "Enter the email you used to create your account so we can send you a code for reseting your password"),
         "role": MessageLookupByLibrary.simpleMessage("Role"),
-        "roleSchema": m4,
+        "roleSchema": m2,
         "roleTooltip": MessageLookupByLibrary.simpleMessage(
             "Administrator: has full access to system user management.\nUser: only has user authentication access."),
         "send": MessageLookupByLibrary.simpleMessage("Send"),
@@ -159,11 +163,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Systems Permissions"),
         "textErrorHome": MessageLookupByLibrary.simpleMessage(
             "An error was found in the parameters, following parameters are required: "),
-        "textSubErrorHome": m5,
+        "textSubErrorHome": m3,
+        "unknownError": MessageLookupByLibrary.simpleMessage(
+            "Unknown error, please try again"),
         "updateUser": MessageLookupByLibrary.simpleMessage("Update User"),
         "updateUserSuccess":
             MessageLookupByLibrary.simpleMessage("User updated successfully"),
-        "userStatusSchema": m6,
+        "userStatusSchema": m4,
         "verifyEmail": MessageLookupByLibrary.simpleMessage("Verify email")
       };
 }

@@ -1,8 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/domain/usecases/admin_create_user_usecase.dart';
 import 'package:gates_microapp_flutter/domain/usecases/update_user_usecase.dart';
-import 'package:gates_microapp_flutter/helpers/guards/admin_guard.dart';
-import 'package:gates_microapp_flutter/helpers/guards/admin_collaborator_guard.dart';
+import 'package:gates_microapp_flutter/shared/guards/admin_guard.dart';
+import 'package:gates_microapp_flutter/shared/guards/admin_collaborator_guard.dart';
 import 'package:gates_microapp_flutter/micro_app_auth_module.dart';
 import 'package:gates_microapp_flutter/micro_app_users_management_module.dart';
 import 'package:gates_microapp_flutter/presenter/controllers/admin/create_user_controller.dart';

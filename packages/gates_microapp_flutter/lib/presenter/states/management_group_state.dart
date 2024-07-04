@@ -1,5 +1,5 @@
 import 'package:gates_microapp_flutter/domain/entities/user_info.dart';
-import 'package:gates_microapp_flutter/domain/errors/errors.dart';
+import 'package:gates_microapp_flutter/shared/helpers/errors/errors.dart';
 
 abstract class ManagementUsersState {
   const ManagementUsersState();

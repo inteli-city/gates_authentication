@@ -1,40 +1,40 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gates_microapp_flutter/domain/entities/logged_user_info.dart';
 import 'package:gates_microapp_flutter/domain/entities/user_info.dart';
 import 'package:gates_microapp_flutter/domain/enum/group_enum.dart';
 import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
-import 'package:gates_microapp_flutter/domain/errors/auth_errors.dart';
+import 'package:gates_microapp_flutter/domain/errors/errors.dart';
+import 'package:gates_microapp_flutter/infra/adapters/user_info_adapter.dart';
 import 'package:gates_microapp_flutter/infra/datasource/auth_datasource_interface.dart';
-import 'package:gates_microapp_flutter/infra/dtos/logged_user_dto.dart';
-import 'package:gates_microapp_flutter/infra/dtos/user_dto.dart';
-import 'package:gates_microapp_flutter/shared/helpers/services/http/http_request_interface.dart';
-import 'package:logger/logger.dart';
+import 'package:gates_microapp_flutter/shared/helpers/errors/errors.dart';
+import 'package:gates_microapp_flutter/shared/helpers/network/http_clients/http_client.dart';
+import 'package:gates_microapp_flutter/shared/helpers/network/model/http_client_error.dart';
 
 class CognitoDatasource implements IAuthDatasource {
-  final Logger logger = Modular.get<Logger>();
-  final IHttpRequest _httpService;
+  final IHttpClient _httpClient;
 
-  CognitoDatasource(this._httpService);
+  CognitoDatasource(this._httpClient);
+
   @override
-  Future<LoggedUserDto> loginEmail(
+  Future<LoggedUserInfo> loginEmail(
       {required String email, required String password}) async {
     await Amplify.Auth.signOut();
     final result = await Amplify.Auth.signIn(
       username: email,
       password: password,
     );
-    logger.d(' ${result.nextStep.signInStep}');
-    logger.d('[CognitoDatasource] loginEmail: ${result.toJson()}}');
     final cognitoPlugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
     final session = await cognitoPlugin.fetchAuthSession();
     if (result.nextStep.signInStep ==
         AuthSignInStep.confirmSignInWithNewPassword) {
-      throw NewPasswordNecessaryError();
+      throw NewPasswordNecessaryError(
+        stackTrace: StackTrace.current,
+      );
     }
     final atribbutes = await Amplify.Auth.fetchUserAttributes();
 
-    return LoggedUserDto(
+    return LoggedUserInfo(
       email: email,
       userId: session.userSubResult.value,
       role: RoleEnum.stringToEnum(atribbutes
@@ -55,43 +55,37 @@ class CognitoDatasource implements IAuthDatasource {
   Future<void> logout() async {
     final result = await Amplify.Auth.signOut();
     if (result is CognitoCompleteSignOut) {
-      logger.d('Sign out completed successfully');
     } else if (result is CognitoFailedSignOut) {
-      logger.d('Error signing user out: ${result.exception.message}');
-      throw Exception();
+      throw LogoutError();
     }
   }
 
   @override
-  Future<LoggedUserDto?> getLoggedUser() async {
-    try {
-      final cognitoPlugin =
-          Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
-      final session = await cognitoPlugin.fetchAuthSession();
-      logger.d('User is signed in: ${session.isSignedIn}');
-      if (!session.isSignedIn) {
-        return null;
-      }
-      final atribbutes = await Amplify.Auth.fetchUserAttributes();
-      return LoggedUserDto(
-        email: session.userPoolTokensResult.value.idToken.email!,
-        userId: session.userSubResult.value,
-        role: RoleEnum.stringToEnum(atribbutes
-            .firstWhere((element) =>
-                element.userAttributeKey.toString() == 'custom:general_role')
-            .value),
-        accessToken: session.userPoolTokensResult.value.accessToken.raw,
-        name: session.userPoolTokensResult.value.idToken.name!,
-        idToken: session.userPoolTokensResult.value.idToken.raw,
-        refreshToken: session.userPoolTokensResult.value.refreshToken,
-        groups: session.userPoolTokensResult.value.idToken.groups
-            .map((e) => GroupEnum.stringToEnum(e))
-            .toList(),
+  Future<LoggedUserInfo> getLoggedUser() async {
+    final cognitoPlugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
+    final session = await cognitoPlugin.fetchAuthSession();
+    if (!session.isSignedIn) {
+      throw AuthError(
+        errorMessage: 'Usuário não logado',
+        stackTrace: StackTrace.current,
       );
-    } on AuthException catch (e) {
-      logger.d('Error retrieving auth session: ${e.message}');
-      throw Exception();
     }
+    final atribbutes = await Amplify.Auth.fetchUserAttributes();
+    return LoggedUserInfo(
+      email: session.userPoolTokensResult.value.idToken.email!,
+      userId: session.userSubResult.value,
+      role: RoleEnum.stringToEnum(atribbutes
+          .firstWhere((element) =>
+              element.userAttributeKey.toString() == 'custom:general_role')
+          .value),
+      accessToken: session.userPoolTokensResult.value.accessToken.raw,
+      name: session.userPoolTokensResult.value.idToken.name!,
+      idToken: session.userPoolTokensResult.value.idToken.raw,
+      refreshToken: session.userPoolTokensResult.value.refreshToken,
+      groups: session.userPoolTokensResult.value.idToken.groups
+          .map((e) => GroupEnum.stringToEnum(e))
+          .toList(),
+    );
   }
 
   @override
@@ -121,59 +115,91 @@ class CognitoDatasource implements IAuthDatasource {
       required String name,
       required RoleEnum role,
       required List<String> groups}) async {
-    var data = {
-      "email": email,
-      "name": name,
-      "role": role.name,
-      "groups": groups
-    };
-    var response = await _httpService.post('/create-user', data: data);
-    if (response.statusCode == 201) {
-      return;
+    try {
+      final data = {
+        "email": email,
+        "name": name,
+        "role": role.name,
+        "groups": groups
+      };
+      await _httpClient.post('/create-user', data: data);
+    } on Failure catch (e, stackTrace) {
+      if (e is TimeOutError) {
+        throw NoInternetConnectionError();
+      } else {
+        throw CreateUserError(
+          stackTrace: stackTrace,
+          errorMessage: e.errorMessage,
+        );
+      }
     }
-    throw Exception();
   }
 
   @override
-  Future<List<UserDto>> getListUsersInGroup({required String group}) async {
-    var response = await _httpService.post('/list-users-in-group', data: {
-      "group": group,
-    });
-    if (response.statusCode == 200) {
-      return UserDto.fromMaps(response.data["users"]);
+  Future<List<UserInfo>> getListUsersInGroup({required String group}) async {
+    try {
+      final response = await _httpClient.post('/list-users-in-group', data: {
+        "group": group,
+      });
+
+      return UserInfoAdapter.fromJsonList(response.data["users"]);
+    } on Failure catch (e, stackTrace) {
+      if (e is TimeOutError) {
+        throw NoInternetConnectionError();
+      } else {
+        throw ListUsersError(
+          stackTrace: stackTrace,
+          errorMessage: e.errorMessage,
+        );
+      }
     }
-    throw Exception();
   }
 
   @override
-  Future<UserDto> adminUpdateUser({
+  Future<UserInfo> adminUpdateUser({
     required String email,
     required String name,
     required RoleEnum role,
     required List<String> groups,
     required bool enabled,
   }) async {
-    var response = await _httpService.post('/update-user', data: {
-      "email": email,
-      "name": name,
-      "role": role.name,
-      "groups": groups,
-      "enabled": enabled,
-    });
+    try {
+      final response = await _httpClient.post('/update-user', data: {
+        "email": email,
+        "name": name,
+        "role": role.name,
+        "groups": groups,
+        "enabled": enabled,
+      });
 
-    if (response.statusCode == 200) {
-      return UserDto.fromMap(response.data["user"]);
+      return UserInfoAdapter.fromJson(response.data["user"]);
+    } on Failure catch (e, stackTrace) {
+      if (e is TimeOutError) {
+        throw NoInternetConnectionError();
+      } else {
+        throw UpdateUserError(
+          stackTrace: stackTrace,
+          errorMessage: e.errorMessage,
+        );
+      }
     }
-    throw Exception();
   }
 
   @override
   Future<List<UserInfo>> getAllUsers() async {
-    var response = await _httpService.get('/get-all-users');
+    try {
+      final response = await _httpClient.get('/get-all-users');
 
-    if (response.statusCode == 200) {
-      return UserDto.fromMaps(response.data["users"]);
+      return UserInfoAdapter.fromJsonList(response.data["users"]);
+    } on Failure catch (e, stackTrace) {
+      if (e is TimeOutError) {
+        throw NoInternetConnectionError();
+      } else {
+        throw ListUsersError(
+          stackTrace: stackTrace,
+          errorMessage: e.errorMessage,
+        );
+      }
     }
-    throw Exception();
   }
 }

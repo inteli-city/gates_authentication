@@ -5,8 +5,8 @@ import 'package:gates_microapp_flutter/core/auth_controller.dart';
 import 'package:gates_microapp_flutter/domain/entities/user_info.dart';
 import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
 import 'package:gates_microapp_flutter/generated/l10n.dart';
-import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
-import 'package:gates_microapp_flutter/helpers/utils/screen_helper.dart';
+import 'package:gates_microapp_flutter/shared/helpers/functions/global_snackbar.dart';
+import 'package:gates_microapp_flutter/shared/helpers/utils/screen_helper.dart';
 import 'package:gates_microapp_flutter/presenter/controllers/admin/management_users_controller.dart';
 import 'package:gates_microapp_flutter/presenter/states/management_group_state.dart';
 import 'package:gates_microapp_flutter/presenter/ui/dialogs/update_user_dialog.dart';
@@ -45,7 +45,7 @@ class _ManagementUsersPageState extends State<ManagementUsersPage> {
                     style: AppTextStyles.headline1,
                   ),
                   const SizedBox(height: 16),
-                  Text('Erro ao carregar dados: ${state.error.message}')
+                  Text('Erro ao carregar dados: ${state.error.errorMessage}')
                 ],
               )
             : state is ManagementUsersSuccessState

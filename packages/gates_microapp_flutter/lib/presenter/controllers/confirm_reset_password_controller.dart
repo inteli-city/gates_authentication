@@ -1,9 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/domain/usecases/confirm_reset_password.dart';
-import 'package:gates_microapp_flutter/helpers/functions/global_snackbar.dart';
-import 'package:gates_microapp_flutter/helpers/utils/validation_field.dart';
+import 'package:gates_microapp_flutter/shared/helpers/functions/global_snackbar.dart';
+import 'package:gates_microapp_flutter/shared/helpers/utils/validation_field.dart';
 import 'package:gates_microapp_flutter/presenter/states/basic_state.dart';
-import 'package:logger/logger.dart';
 import 'package:mobx/mobx.dart';
 part 'confirm_reset_password_controller.g.dart';
 
@@ -11,7 +10,6 @@ class ConfirmResetPasswordController = ConfirmResetPasswordControllerBase
     with _$ConfirmResetPasswordController;
 
 abstract class ConfirmResetPasswordControllerBase with Store {
-  final Logger logger = Modular.get();
   final IConfirmResetPasswordUsecase _confirmResetPassword;
   late final String _email;
 
@@ -66,8 +64,7 @@ abstract class ConfirmResetPasswordControllerBase with Store {
     setState(BasicLoadingState());
     var result = await _confirmResetPassword(_email, code, newPassword);
     setState(result.fold((e) {
-      logger.e(e.message);
-      GlobalSnackBar.error(e.message);
+      GlobalSnackBar.error(e.errorMessage);
       return BasicErrorState(error: e);
     }, (user) {
       Modular.to.navigate('/');
