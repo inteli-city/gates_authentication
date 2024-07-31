@@ -5,6 +5,7 @@ import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
 import 'package:gates_authentication/app/home/domain/entities/params.dart';
 import 'package:gates_authentication/app/home/domain/usecases/get_params.dart';
 import 'package:gates_authentication/app/home/domain/usecases/set_params.dart';
+import 'package:gates_microapp_flutter/micro_app_auth_module.dart';
 import 'package:gates_microapp_flutter/shared/helpers/functions/global_snackbar.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,8 +16,8 @@ class HomeStore = HomeStoreBase with _$HomeStore;
 abstract class HomeStoreBase with Store {
   final GetParams _getParams;
   final SetParams _setParams;
-  final AuthController _authController;
-  HomeStoreBase(this._getParams, this._authController, this._setParams) {
+  final AuthController _authController = authInjector.get<AuthController>();
+  HomeStoreBase(this._getParams, this._setParams) {
     if (Modular.args.uri.toString().contains('/?')) {
       final result = _setParams(Modular.args.uri);
       result.fold((l) {}, (r) => null);
@@ -27,7 +28,7 @@ abstract class HomeStoreBase with Store {
         Modular.to.navigate('/');
       } else {
         if (!value) {
-          Modular.to.navigate('/login/');
+          Modular.to.navigate('/login');
         } else {
           _authController.user!.role == RoleEnum.USER ||
                   _authController.user!.role == RoleEnum.COLLABORATOR
@@ -37,7 +38,7 @@ abstract class HomeStoreBase with Store {
                   },
                   _authController.user!.email
                 ])
-              : Modular.to.navigate('/admin/', arguments: [
+              : Modular.to.navigate('/admin', arguments: [
                   () {
                     signIn();
                   },

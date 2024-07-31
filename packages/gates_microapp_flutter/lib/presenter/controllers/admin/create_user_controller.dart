@@ -1,8 +1,8 @@
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/core/auth_controller.dart';
 import 'package:gates_microapp_flutter/domain/enum/role_enum.dart';
 import 'package:gates_microapp_flutter/domain/usecases/admin_create_user_usecase.dart';
 import 'package:gates_microapp_flutter/generated/l10n.dart';
+import 'package:gates_microapp_flutter/micro_app_auth_module.dart';
 import 'package:gates_microapp_flutter/shared/helpers/functions/global_snackbar.dart';
 import 'package:gates_microapp_flutter/presenter/states/basic_state.dart';
 import 'package:mobx/mobx.dart';
@@ -13,7 +13,7 @@ class CreateUserController = CreateUserControllerBase
     with _$CreateUserController;
 
 abstract class CreateUserControllerBase with Store {
-  var authController = Modular.get<AuthController>();
+  var authController = authInjector.get<AuthController>();
   final IAdminCreateUserUsecase _adminCreateUser;
 
   CreateUserControllerBase(this._adminCreateUser);

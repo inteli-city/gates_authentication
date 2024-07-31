@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/core/auth_controller.dart';
+import 'package:gates_microapp_flutter/micro_app_auth_module.dart';
 
 class AuthInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    var authStore = Modular.get<AuthController>();
+    var authStore = authInjector.get<AuthController>();
     if (authStore.user != null) {
       options.headers['Authorization'] = 'Bearer ${authStore.user!.idToken}';
     }

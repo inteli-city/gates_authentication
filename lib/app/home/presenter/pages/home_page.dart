@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gates_authentication/app/app_module.dart';
 import 'package:gates_microapp_flutter/generated/l10n.dart';
 import 'package:gates_microapp_flutter/presenter/ui/pages/landing_page.dart';
 import 'package:gates_microapp_flutter/shared/themes/app_colors.dart';
@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomeStore store = Modular.get<HomeStore>();
+  final HomeStore store = injector.get<HomeStore>();
   @override
   Widget build(BuildContext context) {
     return LandingPage(

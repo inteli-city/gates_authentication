@@ -1,4 +1,3 @@
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/domain/usecases/reset_password_usecase.dart';
 import 'package:gates_microapp_flutter/shared/helpers/functions/global_snackbar.dart';
 import 'package:gates_microapp_flutter/presenter/states/basic_state.dart';
@@ -33,7 +32,7 @@ abstract class ForgotPasswordControllerBase with Store {
       GlobalSnackBar.error(e.errorMessage);
       return BasicErrorState(error: e);
     }, (user) {
-      Modular.to.pushNamed('/login/new-password', arguments: email);
+      // Modular.to.pushNamed('/login/new-password', arguments: email);
       return BasicInitialState();
     }));
   }

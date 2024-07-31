@@ -1,4 +1,3 @@
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/domain/usecases/confirm_new_password_usecase.dart';
 import 'package:gates_microapp_flutter/shared/helpers/functions/global_snackbar.dart';
 import 'package:gates_microapp_flutter/shared/helpers/utils/validation_field.dart';
@@ -59,7 +58,7 @@ abstract class LoginNewPasswordControllerBase with Store {
       GlobalSnackBar.error(e.errorMessage);
       return BasicErrorState(error: e);
     }, (user) {
-      Modular.to.navigate('/');
+      // Modular.to.navigate('/');
       return BasicInitialState();
     }));
   }

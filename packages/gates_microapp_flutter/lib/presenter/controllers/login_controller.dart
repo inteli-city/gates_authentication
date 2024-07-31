@@ -1,4 +1,3 @@
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gates_microapp_flutter/core/auth_controller.dart';
 import 'package:gates_microapp_flutter/domain/usecases/login_with_email_usecase.dart';
 import 'package:gates_microapp_flutter/shared/helpers/functions/global_snackbar.dart';
@@ -46,13 +45,13 @@ abstract class LoginControllerBase with Store {
     setState(result.fold((e) {
       GlobalSnackBar.error(e.errorMessage);
       if (e is NewPasswordNecessaryError) {
-        Modular.to.navigate('./login-new-password');
+        // Modular.to.navigate('./login-new-password');
       }
 
       return BasicErrorState(error: e);
     }, (user) {
       _authController.setUser(user);
-      Modular.to.navigate('/', arguments: user.role);
+      // Modular.to.navigate('/', arguments: user.role);
 
       return BasicInitialState();
     }));

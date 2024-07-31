@@ -1,4 +1,4 @@
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gates_microapp_flutter/micro_app_auth_module.dart';
 import 'package:logger/logger.dart';
 
 import '../../../generated/l10n.dart';
@@ -10,12 +10,12 @@ abstract class Failure implements Exception {
     required this.errorMessage,
     StackTrace? stackTrace,
   }) {
-    Modular.get<Logger>().e(
-      errorMessage,
-      time: DateTime.now(),
-      error: this,
-      stackTrace: stackTrace,
-    );
+    authInjector.get<Logger>().e(
+          errorMessage,
+          time: DateTime.now(),
+          error: this,
+          stackTrace: stackTrace,
+        );
   }
 }
 

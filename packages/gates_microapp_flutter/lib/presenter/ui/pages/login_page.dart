@@ -1,3 +1,4 @@
+import 'package:auto_injector/auto_injector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -16,7 +17,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LoginController controller = Modular.get();
+    final LoginController controller = AutoInjector().get<LoginController>();
     final formKey = GlobalKey<FormState>();
     return LandingPage(
       child: Form(
