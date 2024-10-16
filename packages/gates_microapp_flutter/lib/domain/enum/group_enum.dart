@@ -3,6 +3,7 @@
 enum GroupEnum {
   GAIA,
   JUNDIAI,
+  SABESP,
   FORMULARIOS;
 
   static GroupEnum stringToEnum(String group) {
@@ -13,6 +14,8 @@ enum GroupEnum {
         return GroupEnum.JUNDIAI;
       case 'FORMULARIOS':
         return GroupEnum.FORMULARIOS;
+      case 'SABESP':
+        return GroupEnum.SABESP;
       default:
         throw Exception('Group not found');
     }
